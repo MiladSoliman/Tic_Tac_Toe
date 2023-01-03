@@ -22,6 +22,7 @@ import javafx.stage.Stage;
  * @author USER
  */
 public class LevelScreenController implements Initializable {
+    String playerName;
 
     /**
      * Initializes the controller class.
@@ -32,11 +33,24 @@ public class LevelScreenController implements Initializable {
     }    
       @FXML
     private void GameScreen(ActionEvent event) throws Exception{
-       Parent root = FXMLLoader.load(getClass().getResource("GameScreen.fxml"));
+      // Parent root = FXMLLoader.load(getClass().getResource("GameScreen.fxml"));
+      // Scene scene = new Scene(root);
+      // Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+      // stage.setScene(scene);
+      // stage.show();
+       
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("GameScreen.fxml"));	
+        Parent root = loader.load();	
+	GameScreenController gameScreenController = loader.getController();
+	gameScreenController.displayName(playerName);
+        
+       //Parent root = FXMLLoader.load(getClass().getResource("LevelScreen.fxml"));
        Scene scene = new Scene(root);
        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
        stage.setScene(scene);
        stage.show();
+       
     }
      @FXML
       private void homescreen(ActionEvent event) throws Exception{
@@ -46,5 +60,9 @@ public class LevelScreenController implements Initializable {
        stage.setScene(scene);
        stage.show();
     }
+      
+          public void saveName(String username) {
+		playerName=username;
+	}
     
 }

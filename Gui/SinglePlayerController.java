@@ -16,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -29,6 +30,8 @@ public class SinglePlayerController implements Initializable {
     private Button homescreen;
     @FXML
     private Button gotolevels;
+    @FXML
+    private TextField single_player_name;
 
     /**
      * Initializes the controller class.
@@ -50,7 +53,16 @@ public class SinglePlayerController implements Initializable {
 
     @FXML
     private void gotolevels(ActionEvent event) throws IOException {
-         Parent root = FXMLLoader.load(getClass().getResource("LevelScreen.fxml"));
+        String username = "Player";
+        if(!single_player_name.getText().toString().isEmpty())
+         username = single_player_name.getText().toString();
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("LevelScreen.fxml"));	
+        Parent root = loader.load();	
+	LevelScreenController levelScreenController = loader.getController();
+	levelScreenController.saveName(username);
+        
+       //Parent root = FXMLLoader.load(getClass().getResource("LevelScreen.fxml"));
        Scene scene = new Scene(root);
        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
        stage.setScene(scene);
