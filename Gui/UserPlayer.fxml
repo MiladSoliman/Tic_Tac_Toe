@@ -16,9 +16,9 @@
       </ImageView>
       <Button fx:id="homescreen" layoutX="50.0" layoutY="55.0" mnemonicParsing="false" onAction="#homescreen" prefHeight="49.0" prefWidth="82.0" style="-fx-background-radius: 15px; -fx-background-color: beige;" text="Home" />
       <Button fx:id="GameScreen" layoutX="424.0" layoutY="322.0" mnemonicParsing="false" onAction="#GameScreen" prefHeight="43.0" prefWidth="98.0" style="-fx-background-radius: 15px; -fx-background-color: beige;" text="Start" />
-      <Label layoutX="251.0" layoutY="47.0" style="-fx-font-style: Italic;" text="Enter Player1" textFill="#54cba7" />
-      <TextField layoutX="235.0" layoutY="64.0" />
-      <Label layoutX="250.0" layoutY="170.0" text="Enter Player2" textFill="#54cba7" />
-      <TextField layoutX="235.0" layoutY="187.0" />
+      <Label layoutX="207.0" layoutY="69.0" style="-fx-font-style: Italic;" text="Enter Player1 Name" textFill="#54cba7" />
+      <TextField fx:id="player1namete" layoutX="207.0" layoutY="89.0" />
+      <Label layoutX="207.0" layoutY="190.0" text="Enter Player2 Name" textFill="#54cba7" />
+      <TextField fx:id="playername2te" layoutX="207.0" layoutY="211.0" />
    </children>
 </AnchorPane>
