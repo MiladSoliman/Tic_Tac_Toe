@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.media.MediaView?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="version.pkg1.welcom.page.VideosController">
+   <children>
+      <DialogPane layoutX="35.0" layoutY="190.0" />
+      <MediaView fitHeight="300.0" fitWidth="500.0" layoutX="50.0" layoutY="53.0" />
+   </children>
+</AnchorPane>
