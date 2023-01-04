@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -53,8 +54,19 @@ public class SinglePlayerController implements Initializable {
 
     @FXML
     private void gotolevels(ActionEvent event) throws IOException {
-        String username = "Player";
-        if(!single_player_name.getText().toString().isEmpty())
+
+        String username;
+        if(single_player_name.getText().toString().isEmpty())
+        {Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Required Fields Empty");
+            alert.setContentText("Text field must be filled "
+                    + "out.\nPlease try again.");
+            alert.showAndWait();
+        
+        }
+        else{
+
          username = single_player_name.getText().toString();
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("LevelScreen.fxml"));	
@@ -67,6 +79,7 @@ public class SinglePlayerController implements Initializable {
        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
        stage.setScene(scene);
        stage.show();
+        }
     }
     
 }
