@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="version.pkg1.welcom.page.SignUpController">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
+         <image>
+            <Image url="@WhatsApp%20Image%202022-12-27%20at%206.17.11%20PM.jpeg" />
+         </image>
+      </ImageView>
+      <TextField layoutX="179.0" layoutY="110.0" />
+      <Label layoutX="205.0" layoutY="26.0" text="Sign up" textFill="#23b991">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Label>
+      <TextField layoutX="179.0" layoutY="175.0" />
+      <PasswordField layoutX="179.0" layoutY="237.0" />
+      <PasswordField layoutX="179.0" layoutY="293.0" />
+      <Button fx:id="signup" layoutX="429.0" layoutY="332.0" mnemonicParsing="false" onAction="#GameScreen" prefHeight="47.0" prefWidth="147.0" style="-fx-background-radius: 15px; -fx-background-color: beige;" text="Create account" />
+      <Label layoutX="179.0" layoutY="84.0" text="Username" textFill="#3bddad" />
+      <Label layoutX="179.0" layoutY="154.0" text="Email" textFill="#3fe8ce" />
+      <Label layoutX="180.0" layoutY="216.0" text="Password" textFill="#40e4a8" />
+      <Label layoutX="180.0" layoutY="272.0" text="Confirm Password" textFill="#44eecf" />
+      <Button fx:id="homescreen" layoutX="22.0" layoutY="40.0" mnemonicParsing="false" onAction="#homescreen" prefHeight="31.0" prefWidth="91.0" style="-fx-background-radius: 15px; -fx-background-color: beige;" text="Home" />
+   </children>
+</AnchorPane>
