@@ -24,6 +24,8 @@ import javafx.stage.Stage;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
@@ -105,12 +107,13 @@ public class GameScreenController implements Initializable {
                 buttonPressed.setText("O");
                 //if(EasyOrHardLevelController.isrecord)
                 // AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
-            }
-                 checkState();
+             checkState();
                 if(!winner){
                     computerTurn();
                     checkState();
                 }
+            }
+                
     }
         
         }
@@ -336,19 +339,21 @@ public class GameScreenController implements Initializable {
             winner = true;
         }
  if(playerWin){
-            displayVideo("Draw.mp4");             
+            displayVideo("win.mp4","Congratulations",200,200);
+            playerWin=false;
            /* System.out.println("Synch");
             prefs.putInt("score",score);
             labScore.setText(""+ score);  
             btnPlayAgain.setVisible(true);*/
         }
         else if(computerWin){
-            displayVideo("lose.mp4");
+            displayVideo("lose.mp4","Hard luck",400,400);
+            computerWin=false;
            /* System.out.println("computer wins");
            btnPlayAgain.setVisible(true); */    
         }
        else if (isFullGrid()){
-           displayVideo("Draw.mp4");  
+           displayVideo("Draw.mp4","It's a draw",600,400);  
        }
     
     }
@@ -427,18 +432,21 @@ public class GameScreenController implements Initializable {
     b2.setStyle("-fx-background-color: green;");
     b3.setStyle("-fx-background-color: green;");
 }
-    
-  public void displayVideo(String videopath){
+  public void displayVideo(String videopath,String title,int x,int y){
     Media media = new Media(getClass().getResource(videopath).toExternalForm());
     mp = new MediaPlayer(media); 
     view=new MediaView();
     video = new Dialog<>();
-    video.setHeight(300);
-    view.getFitHeight();
+    video.getDialogPane().setMinSize(x, y);
+    video.setTitle(title);
     video.getDialogPane().getChildren().add(view);
+    ButtonType ok = new ButtonType("ok",ButtonData.OK_DONE);
+    video.getDialogPane().getButtonTypes().add(ok);
     view.setMediaPlayer(mp);   
     video.show(); 
     mp.play();
+    
+    
            
   }
 
