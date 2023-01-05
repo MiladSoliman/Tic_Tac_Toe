@@ -74,6 +74,7 @@ public class GameScreenMultiplayerController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    
     public void displaynames(String username1 , String username2){
        player1.setText(username1);
        player2.setText(username2);
@@ -81,7 +82,7 @@ public class GameScreenMultiplayerController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    
+    playagain.setVisible(false);
     }   
      
    
@@ -130,7 +131,7 @@ private void checkIsWin(){
             playerTwoWin=true;
           
         }
-        
+        playagain.setVisible(true);
     } 
    
     // check first colum
@@ -145,7 +146,7 @@ private void checkIsWin(){
             playerTwoWin=true;
           
         }
-        
+        playagain.setVisible(true);
     }
 
     //check diagonal 1 
@@ -160,6 +161,7 @@ private void checkIsWin(){
             playerTwoWin=true;
          
         }
+        playagain.setVisible(true);
     } 
    
     //check secon row
@@ -173,7 +175,8 @@ private void checkIsWin(){
         {
             playerTwoWin=true;
           
-        }   
+        }
+        playagain.setVisible(true);
     }
    
     // check third row
@@ -188,6 +191,7 @@ private void checkIsWin(){
             playerTwoWin=true;
        
         }
+        playagain.setVisible(true);
         
     } 
   
@@ -203,7 +207,7 @@ private void checkIsWin(){
             playerTwoWin=true;
           
         }
-        
+        playagain.setVisible(true);
     } 
   
      // check third row
@@ -218,7 +222,7 @@ private void checkIsWin(){
             playerTwoWin=true;
           
         }
-        
+        playagain.setVisible(true);
     } 
     
     //check diagonal 2
@@ -233,7 +237,7 @@ private void checkIsWin(){
             playerTwoWin=true;
            
         }
-        
+      playagain.setVisible(true);  
     }
    
     if(playerOneWin){
@@ -267,6 +271,7 @@ private void checkIsWin(){
       diaolg.getDialogPane().getButtonTypes().add(ok);
       diaolg.show(); 
     }
+     
 }
     
     
@@ -285,6 +290,7 @@ private boolean checkIsDraw(){
     }else{
         return false;
     }
+   
 }    
     
 private void colorWinner(Button b1 ,Button b2 , Button b3  ){
