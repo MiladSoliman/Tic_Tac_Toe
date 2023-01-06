@@ -1,3 +1,4 @@
+//desktop
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -5,10 +6,20 @@
  */
 package version.pkg1.welcom.page;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -33,6 +44,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -48,7 +60,10 @@ public class GameScreenController implements Initializable {
     private boolean winner = false;
     private Boolean computerWin = false ;
     private String player = "O";
-
+boolean flag=false;
+String sum="";
+ArrayList<String> parts=new ArrayList<String>();
+            int i=0;
 
 
 
@@ -95,6 +110,7 @@ public class GameScreenController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+       flag=true;
         // TODO
     }    
 
@@ -105,6 +121,7 @@ public class GameScreenController implements Initializable {
             buttonPressed = (Button) e.getSource();
             if(buttonPressed.getText().equals("")){
                 buttonPressed.setText("O");
+                recordGame(buttonPressed.getId().toString(),buttonPressed.getText());
                 //if(EasyOrHardLevelController.isrecord)
                 // AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
              checkState();
@@ -384,7 +401,9 @@ public class GameScreenController implements Initializable {
             //اول ملاقى  زراز يكون فاضى اطلع من اللوب عشان اكتب عليه 
         }while(!myBtn.getText().equals(""));
         myBtn.setText("X");
-                }
+           recordGame(myBtn.getId().toString(),myBtn.getText());
+           
+    }
 
     @FXML
     private void homescreen(ActionEvent event) throws IOException {
@@ -393,14 +412,16 @@ public class GameScreenController implements Initializable {
        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
        stage.setScene(scene);
        stage.show();
+       
     }
 
     @FXML
     private void playagain(ActionEvent event) {
-
-        computerWin=false;
+       
+       /* computerWin=false;
         player="O";
         winner = false ; 
+*/
     btn1.setText("");
     btn2.setText("");
     btn3.setText("");
@@ -419,7 +440,7 @@ public class GameScreenController implements Initializable {
     btn7.setStyle("-fx-background-color: none;");
     btn8.setStyle("-fx-background-color: none;");
     btn9.setStyle("-fx-background-color: none;"); 
-
+watchGame();
     }
     
     public void displayName(String username) {
@@ -445,9 +466,94 @@ public class GameScreenController implements Initializable {
     view.setMediaPlayer(mp);   
     video.show(); 
     mp.play();
+    flag=false;
     
     
            
   }
-
+public void recordGame(String Id,String x){
+           File file=new File("recordings/new.txt");
+        try {
+            FileOutputStream fos;
+            fos = new FileOutputStream(file);
+            DataOutputStream os=new DataOutputStream(fos);
+            String str =sum+Id+" "+x+" ";
+            sum=str;
+            os.writeUTF(str);
+            if (!flag)
+            os.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);
+        }    
 }
+public void watchGame (){
+        try {
+           
+            FileInputStream fis = new FileInputStream("recordings/new.txt");
+            DataInputStream ds = new DataInputStream(fis);
+            String str = new String (ds.readUTF());
+             ds.close();
+            System.out.println(str);
+            String [] parts=str.split(" ");
+             Button bt=new Button();
+             String play;
+             boolean isO=true;
+		for(int i=0;i<parts.length;i+=2){
+                    
+                  // bt.setId(parts[i]);
+                //bt.setText(parts[i+1]);
+                if (isO){
+                play="O";
+                isO=false;
+		
+                }else{
+                       play="X";
+                       isO=true;
+                   }
+                switch(parts[i])
+                                    {
+                                      case "btn1":
+                                         btn1.setText(play);
+                                         break;
+                                     case "btn2":
+                                        btn2.setText(play);
+                                         break;
+                                     case "btn3":
+                                         btn3.setText(play);
+                                         break;
+                                     case "btn4":
+                                         btn4.setText(play);
+                                         break;
+                                     case "btn5":
+                                         btn5.setText(play);
+                                         break;
+                                     case "btn6":
+                                         btn6.setText(play);
+                                         break;
+                                     case "btn7":
+                                         btn7.setText(play);
+                                         break;
+                                     case "btn8":
+                                         btn8.setText(play);
+                                         break;
+                                     case "btn9":
+                                         btn9.setText(play);
+                                         break;
+                                     default:
+                                         break;
+                                    }
+		System.out.println(parts[i]);
+                }
+  
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+}
+}
+            
+
+
