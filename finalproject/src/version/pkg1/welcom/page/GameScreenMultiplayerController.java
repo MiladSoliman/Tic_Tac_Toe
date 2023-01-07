@@ -260,7 +260,6 @@ private void checkIsWin(){
        diaolg.setContentText(player2.getText()+" "+"win");
        ButtonType ok = new ButtonType("Ok", ButtonData.OK_DONE);
        diaolg.getDialogPane().getButtonTypes().add(ok);
-       diaolg.show();
        playerTwoWin = false;
        
     }else if(checkIsDraw()){   
@@ -273,7 +272,6 @@ private void checkIsWin(){
     }
      
 }
-    
     
 private boolean checkIsDraw(){
         String b1=btn1.getText();

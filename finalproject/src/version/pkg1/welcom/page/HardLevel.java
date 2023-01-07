@@ -5,13 +5,26 @@
 package version.pkg1.welcom.page;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import static version.pkg1.welcom.page.GameScreenController.mp;
 
 /**
  *
  * @author abdallahelgedawy
  */
 public class HardLevel {
-        public static class Move
+    
+  
+  //static boolean compWin = false;
+  //static boolean playerWin = false;
+    
+     public static class Move
 {
     int row, col;
     
@@ -38,12 +51,14 @@ public class HardLevel {
                 switch (b[row][0].getText()) {
                     case "O":
                         // colorWinner(b[row][0],b[row][1],b[0][2]);
-                        
+                    
                         return 10;
                         
                     case "X":
                         // colorWinner(b[row][0],b[row][1],b[0][2]);
+                       
                         return -10;
+                        
                 }
               
             }
@@ -54,7 +69,7 @@ public class HardLevel {
             //   colorWinner(b[0][col],b[1][col],b[2][col]);
                 switch (b[0][col].getText()) {
                     case "O":
-                       
+                      
                         return 10;
                     case "X":
                        
@@ -67,29 +82,30 @@ public class HardLevel {
               // colorWinner(b[0][0],b[1][1],b[2][2]);
             switch (b[0][0].getText()) {
                 case "O":  
-                    
-                    return 10;
-                case "X":
-                    
-                    return -10;
-            }
-        }
-
-        if (b[0][2].getText().equals(b[1][1].getText()) && b[1][1].getText().equals(b[2][0].getText())) {
-           //  winner = true;
-          // colorWinner(b[0][2],b[1][1],b[2][0]);
-            switch (b[0][2].getText()) {
-                case "O":
-                    
+                   
                     return 10;
                 case "X":
                    
                     return -10;
             }
         }
+        if (b[0][2].getText().equals(b[1][1].getText()) && b[1][1].getText().equals(b[2][0].getText())) {
+           //  winner = true;
+          // colorWinner(b[0][2],b[1][1],b[2][0]);
+            switch (b[0][2].getText()) {
+                case "O":
+                 
+                    return 10;
+                case "X":
+                
+                 return -10;
+            }
+        }
+    
         return 0;
         
     }
+    
        public static int minimax(Button board[][], int depth, Boolean isMax) {
         int score = checkState(board);
         if (score == 10) {
@@ -115,7 +131,7 @@ public class HardLevel {
             }
             return best;
 
-        } else {
+        } else{
             int best = 1000;
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
@@ -129,9 +145,9 @@ public class HardLevel {
             return best;
         }
     }
-          public static Move findBestMove(Button board[][]) {
+        public static Move findBestMove(Button board[][]) {
         int bestVal = -1000;
-       Move bestMove = new Move();
+        Move bestMove = new Move();
         bestMove.row = 0;
         bestMove.col = 0;
         for (int i = 0; i < 3; i++) {
@@ -150,7 +166,7 @@ public class HardLevel {
         }
         return bestMove;
     }
-
-    }
+   
+}
     
 

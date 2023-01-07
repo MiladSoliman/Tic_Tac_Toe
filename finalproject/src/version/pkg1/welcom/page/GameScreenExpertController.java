@@ -20,8 +20,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
+import static version.pkg1.welcom.page.GameScreenController.mp;
 import version.pkg1.welcom.page.HardLevel.Move;
 import static version.pkg1.welcom.page.HardLevel.checkState;
 import static version.pkg1.welcom.page.HardLevel.findBestMove;
@@ -36,10 +44,11 @@ import static version.pkg1.welcom.page.HardLevel.isMovesLeft;
  * @author abdallahelgedawy
  */
 public class GameScreenExpertController implements Initializable {
-
-    
-    
-        
+public static MediaPlayer mp;
+    Dialog video=new Dialog();
+    DialogPane pane=new DialogPane();
+    MediaView view;
+    boolean flag=false;   
     private boolean winner = false;
     private Boolean computerWin = false ;
     private String player = "O";
@@ -75,7 +84,7 @@ public class GameScreenExpertController implements Initializable {
     private Button btn8;
     @FXML
     private Button btn9;
-        @FXML
+    @FXML
     private Label player_score;
     @FXML
     private Label computer_score;
@@ -102,72 +111,55 @@ public class GameScreenExpertController implements Initializable {
       
         for (Button[] btns : board) {
             for (Button btn : btns) {
-             
-                btn.addEventHandler(ActionEvent.ACTION, (ActionEvent event) -> {
-                    
+               btn.addEventHandler(ActionEvent.ACTION, (ActionEvent event) -> { 
                     if(!winner){
                         if(btn.getText().equals("")){
-                           btn.setText("O");
-                          
-                     if (moveNum + 1 < 9) {  
-                        bestMove = findBestMove(board);
-                        board[bestMove.row][bestMove.col].setText("X");
+                           btn.setText("O");  
+                           if (moveNum + 1 < 9) {  
+                           bestMove = findBestMove(board);
+                           board[bestMove.row][bestMove.col].setText("X");
                      //   board[bestMove.row][bestMove.col].setMouseTransparent(true);
                         // System.out.println(bestMove.row);
                          //  System.out.println(bestMove.col);
-                        
-                    }
-
-                    moveNum += 2;
-                    
-                     
-                    if (moveNum >= 5) {
-                        
-                        int result = checkState(board);
- 
-                        if (result == 10) {
-                            int score=Integer.parseInt(player_score.getText().toString());
-                            score+=1;
-                            player_score.setText(""+score);
-                            System.out.println(score);
-                            playerWin = true;
-                            winner = true;
-               
-
-                      
+                           }
+                           moveNum += 2;
+                           if (moveNum >= 5) {
+                              int result = checkState(board);
+                              // player win
+                              if (result == 10) {
+                              int score=Integer.parseInt(player_score.getText().toString());
+                              score+=1;
+                              player_score.setText(""+score);
+                              System.out.println(score);
+                              playerWin = true;
+                              winner = true;
+                              displayVideo("win.mp4","Congratulations",200,200);
                           //  xScore++;
                           //  System.out.println("the x score is" + xScore);
-
-                        } else if (result == -10) {
-                            computerWin=true;
-                           
-
-                int score=Integer.parseInt(computer_score.getText().toString());
-               score+=1;
-                            computer_score.setText(""+score);  
-                            winner = true;
-
-                        } else if (isMovesLeft(board) == false) {
-                            
-                          //  tieScore++;
-                            
-                            
-                            System.out.println("Draw");
-                           winner = true;
+                            // Computer win
+                           } else if (result == -10) {
+                              computerWin=true;
+                              displayVideo("lose.mp4","Hard luck",400,400);
+                              int score=Integer.parseInt(computer_score.getText().toString());
+                              score+=1;
+                              computer_score.setText(""+score);  
+                              winner = true;
+                              // No one wins (DRAW)
+                             } else if (isMovesLeft(board) == false) {
+                          //  tieScore++;   
+                                System.out.println("Draw");
+                                winner = true;
+                                displayVideo("Draw.mp4","It's a draw",600,400);
+                             }
+                            }
                         }
-                    }
-                     }
                 
-                    }
-                    
-                    
-        });
-        
-
+                    }            
+             });
+        }
     }
-}
           
-    }
+}
     
        
     @FXML
@@ -186,24 +178,8 @@ public class GameScreenExpertController implements Initializable {
     btn7.setText("");
     btn8.setText("");
     btn9.setText("");
-    btn1.setStyle("-fx-background-color: none;");
-    btn2.setStyle("-fx-background-color: none;");
-    btn3.setStyle("-fx-background-color: none;");
-    btn4.setStyle("-fx-background-color: none;");
-    btn5.setStyle("-fx-background-color: none;");
-    btn6.setStyle("-fx-background-color: none;");
-    btn7.setStyle("-fx-background-color: none;");
-    btn8.setStyle("-fx-background-color: none;");
-    btn9.setStyle("-fx-background-color: none;"); 
- 
     }        
-       
-
-
-    
-
-
-    
+        
     @FXML
     private void homescreen(ActionEvent event) throws IOException {
            Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
@@ -211,17 +187,26 @@ public class GameScreenExpertController implements Initializable {
        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
        stage.setScene(scene);
        stage.show();
-    }
-
-
-        
-        
-               
-     public void displayName(String username) {
+    }          
+    public void displayName(String username) {
 		player_name.setText(""+username);
-	}
+    }
+    
+    
+    public void displayVideo(String videopath,String title,int x,int y){
+        Media media = new Media(getClass().getResource(videopath).toExternalForm());
+        mp = new MediaPlayer(media); 
+        view=new MediaView();
+        video = new Dialog<>();
+        video.getDialogPane().setMinSize(x, y);
+        video.setTitle(title);
+        video.getDialogPane().getChildren().add(view);
+        ButtonType ok = new ButtonType("ok",ButtonBar.ButtonData.OK_DONE);
+        video.getDialogPane().getButtonTypes().add(ok);
+        view.setMediaPlayer(mp);   
+        video.show(); 
+        mp.play();
+        flag=false;
 
-
- 
-
+    }
 }

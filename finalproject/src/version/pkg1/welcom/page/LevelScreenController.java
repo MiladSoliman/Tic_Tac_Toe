@@ -1,10 +1,10 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 package version.pkg1.welcom.page;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -14,15 +14,26 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
- * @author USER
+ * @author abdallahelgedawy
  */
 public class LevelScreenController implements Initializable {
-    String playerName;
+
+    @FXML
+    private Button Beginner;
+    @FXML
+    private Button Proficient;
+    @FXML
+    private Button GameScreenExpert;
+    @FXML
+    private Button homescreen;
+    String playerName = null;
+   
 
     /**
      * Initializes the controller class.
@@ -31,8 +42,8 @@ public class LevelScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-      @FXML
-    private void GameScreen(ActionEvent event) throws Exception{
+@FXML
+  private void GameScreen(ActionEvent event) throws Exception{
       // Parent root = FXMLLoader.load(getClass().getResource("GameScreen.fxml"));
       // Scene scene = new Scene(root);
       // Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
@@ -64,5 +75,20 @@ public class LevelScreenController implements Initializable {
           public void saveName(String username) {
 		playerName=username;
 	}
+
+    @FXML
+    private void GameScreenExpert(ActionEvent event) throws IOException {
+           FXMLLoader loader = new FXMLLoader(getClass().getResource("GameScreenExpert.fxml"));	
+        Parent root = loader.load();	
+	GameScreenExpertController gameScreenController = loader.getController();
+	gameScreenController.displayName(playerName);
+        
+       //Parent root = FXMLLoader.load(getClass().getResource("LevelScreen.fxml"));
+       Scene scene = new Scene(root);
+       Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+       stage.setScene(scene);
+       stage.show();
+    }
     
 }
+
