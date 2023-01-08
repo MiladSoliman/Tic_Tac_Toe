@@ -26,6 +26,7 @@ public class Server_finalproject extends Application {
         Parent root =new FinalBase(stage);
         Scene scene = new Scene(root);
         stage.setTitle("Tic Tac Toe");
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }

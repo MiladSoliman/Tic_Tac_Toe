@@ -54,7 +54,7 @@ import javafx.stage.Window;
  *
  * @author User
  */
-public class GameScreenController implements Initializable {
+public class GameScreenController implements Initializable,Runnable {
     
     private Button buttonPressed;
     private boolean winner = false;
@@ -62,8 +62,13 @@ public class GameScreenController implements Initializable {
     private String player = "O";
 boolean flag=false;
 String sum="";
-ArrayList<String> parts=new ArrayList<String>();
+//ArrayList<String> parts=new ArrayList<String>();
             int i=0;
+             String play;
+    Thread th;
+    boolean isO=true;
+    String [] parts;
+    String str;
 
 
 
@@ -77,23 +82,23 @@ ArrayList<String> parts=new ArrayList<String>();
      
      @FXML
 
-    private Button btn1;
+    protected Button btn1;
     @FXML
-    private Button btn2;
+    protected Button btn2;
     @FXML
-    private Button btn3;
+    protected Button btn3;
     @FXML
-    private Button btn4;
+    protected Button btn4;
     @FXML
-    private Button btn5;
+    protected Button btn5;
     @FXML
-    private Button btn6;
+    protected Button btn6;
     @FXML
-    private Button btn7;
+    protected Button btn7;
     @FXML
-    private Button btn8;
+    protected Button btn8;
     @FXML
-    private Button btn9;
+    protected Button btn9;
     @FXML
     private Label player_name;
     @FXML
@@ -440,7 +445,8 @@ ArrayList<String> parts=new ArrayList<String>();
     btn7.setStyle("-fx-background-color: none;");
     btn8.setStyle("-fx-background-color: none;");
     btn9.setStyle("-fx-background-color: none;"); 
-watchGame();
+
+  watchGame();
     }
     
     public void displayName(String username) {
@@ -488,7 +494,7 @@ public void recordGame(String Id,String x){
             Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }    
 }
-public void watchGame (){
+/*public void watchGame (){
         try {
            
             FileInputStream fis = new FileInputStream("recordings/new.txt");
@@ -516,35 +522,44 @@ public void watchGame (){
                                     {
                                       case "btn1":
                                          btn1.setText(play);
+   
                                          break;
                                      case "btn2":
                                         btn2.setText(play);
+ 
                                          break;
                                      case "btn3":
                                          btn3.setText(play);
+
                                          break;
                                      case "btn4":
                                          btn4.setText(play);
+
                                          break;
                                      case "btn5":
                                          btn5.setText(play);
+ 
                                          break;
                                      case "btn6":
                                          btn6.setText(play);
+
                                          break;
                                      case "btn7":
                                          btn7.setText(play);
-                                         break;
+                                      break;
                                      case "btn8":
                                          btn8.setText(play);
+ 
                                          break;
                                      case "btn9":
                                          btn9.setText(play);
+
                                          break;
                                      default:
                                          break;
                                     }
-		System.out.println(parts[i]);
+
+
                 }
   
         } catch (FileNotFoundException ex) {
@@ -552,7 +567,99 @@ public void watchGame (){
         } catch (IOException ex) {
             Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);
         } 
+
+
 }
+
+
+
+
+*/
+public void watchGame (){
+    th=new Thread(this);
+    FileInputStream fis = null;
+        try {
+            fis = new FileInputStream("recordings/new.txt");
+            DataInputStream ds = new DataInputStream(fis);
+            str = new String (ds.readUTF());
+             fis.close();
+            ds.close();
+            parts=str.split(" ");
+             th.start();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Replay.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Replay.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+}
+    @Override
+   
+    public void run() {
+      int i=0;
+        while(i<=parts.length)
+        {              
+            try {
+                if (isO){
+                        play="O";
+                        isO=false;
+                        }
+                else{
+                    play="X";
+                    isO=true;
+                    }
+                switch(parts[i])
+                {
+                   case "btn1":
+
+                       btn1.setText(play);
+
+                       break;
+                   case "btn2":
+                       btn2.setText(play);
+
+                       break;
+                   case "btn3":
+
+                       btn3.setText(play);
+
+                       break;
+                   case "btn4":
+                       btn4.setText(play);
+
+                       break;
+                   case "btn5":
+                       System.out.println(parts[0]);
+                       btn5.setText(play);
+
+                       break;
+                   case "btn6":
+                       btn6.setText(play);
+
+                       break;
+                   case "btn7":
+                       btn7.setText(play);
+
+                       break;
+                   case "btn8":
+                       btn8.setText(play);
+
+                       break;
+                   case "btn9":
+                       btn9.setText(play);
+
+                       break;
+                   default:
+                       break;
+               }
+
+               Thread.sleep(3000);
+                i+=2;
+           } catch (InterruptedException ex) {
+               Logger.getLogger(Replay.class.getName()).log(Level.SEVERE, null, ex);
+           }
+        }
+    }
+ 
 }
             
 

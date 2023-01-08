@@ -93,12 +93,12 @@ public class FinalBase extends StackPane {
                 
                     button.setText("deactivate");
                     flag=false;
-                    Player player=new Player("hadia","hadia@gmail.com","1234",50,"online");
-                try {
-                    DataAccessLayerFinal.insert(player);
-                } catch (SQLException ex) {
-                    Logger.getLogger(FinalBase.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                    //Player player=new Player("hadia","hadia@gmail.com","1234",50,"online");
+                //try {
+                  //  DataAccessLayerFinal.insert(player);
+                //} catch (SQLException ex) {
+                  //  Logger.getLogger(FinalBase.class.getName()).log(Level.SEVERE, null, ex);
+                //}
                 
                 
                 
