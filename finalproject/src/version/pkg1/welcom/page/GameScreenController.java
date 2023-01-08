@@ -14,6 +14,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -35,6 +37,7 @@ import javafx.stage.Stage;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -104,6 +107,12 @@ ArrayList<String> parts=new ArrayList<String>();
     private Button exit_btn;
     @FXML
     private Button play_again_btn;
+        @FXML
+    private Button btn_watch_game;
+    
+    String fileName;
+    boolean is_recored_game;
+    ArrayList<String> listOfNamesGames = new ArrayList<String>();
 
     /**
      * Initializes the controller class.
@@ -112,6 +121,8 @@ ArrayList<String> parts=new ArrayList<String>();
     public void initialize(URL url, ResourceBundle rb) {
        flag=true;
         // TODO
+               //recording the game
+       is_recored_game=isRecordGame();
     }    
 
     @FXML
@@ -121,7 +132,7 @@ ArrayList<String> parts=new ArrayList<String>();
             buttonPressed = (Button) e.getSource();
             if(buttonPressed.getText().equals("")){
                 buttonPressed.setText("O");
-                recordGame(buttonPressed.getId().toString(),buttonPressed.getText());
+                recordGame(buttonPressed.getId().toString(),buttonPressed.getText(),is_recored_game);
                 //if(EasyOrHardLevelController.isrecord)
                 // AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
              checkState();
@@ -401,7 +412,7 @@ ArrayList<String> parts=new ArrayList<String>();
             //اول ملاقى  زراز يكون فاضى اطلع من اللوب عشان اكتب عليه 
         }while(!myBtn.getText().equals(""));
         myBtn.setText("X");
-           recordGame(myBtn.getId().toString(),myBtn.getText());
+           recordGame(myBtn.getId().toString(),myBtn.getText(),is_recored_game);
            
     }
 
@@ -414,14 +425,28 @@ ArrayList<String> parts=new ArrayList<String>();
        stage.show();
        
     }
+    @FXML
+    private void changeSceneToWatchGame (ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ListRecordedGames.fxml"));	
+        Parent root = loader.load();	
+	ListRecordedGamesController listRecordedGamestroller = loader.getController();
+	listRecordedGamestroller.displaylistOfNamesGames(listOfNamesGames);
+        
+        //Parent root = FXMLLoader.load(getClass().getResource("ListRecordedGames.fxml"));
+       Scene scene = new Scene(root); 
+       Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+       stage.setScene(scene);
+       stage.show();
+    
+    }
 
     @FXML
     private void playagain(ActionEvent event) {
        
-       /* computerWin=false;
+        computerWin=false;
         player="O";
         winner = false ; 
-*/
+
     btn1.setText("");
     btn2.setText("");
     btn3.setText("");
@@ -440,7 +465,7 @@ ArrayList<String> parts=new ArrayList<String>();
     btn7.setStyle("-fx-background-color: none;");
     btn8.setStyle("-fx-background-color: none;");
     btn9.setStyle("-fx-background-color: none;"); 
-watchGame();
+    
     }
     
     public void displayName(String username) {
@@ -467,12 +492,19 @@ watchGame();
     video.show(); 
     mp.play();
     flag=false;
+    btn_watch_game.setDisable(false);
     
     
            
   }
-public void recordGame(String Id,String x){
-           File file=new File("recordings/new.txt");
+public void recordGame(String Id,String x, boolean isrecoredGame){
+    if (isrecoredGame){
+        File dir = new File("recordings");
+        //add new file
+        dir.mkdirs();
+        File  file = new File(dir+"/"+fileName);
+      
+           //File file=new File("recordings/new.txt");
         try {
             FileOutputStream fos;
             fos = new FileOutputStream(file);
@@ -486,7 +518,8 @@ public void recordGame(String Id,String x){
             Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);
-        }    
+        }  
+}
 }
 public void watchGame (){
         try {
@@ -553,7 +586,44 @@ public void watchGame (){
             Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);
         } 
 }
+
+
+
+
+public boolean isRecordGame(){
+                   //recording the game
+       
+        boolean checkRecording;
+        ButtonType Yes = new ButtonType("Yes"); 
+        ButtonType No = new ButtonType("NO", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert a = new Alert(Alert.AlertType.NONE); 
+        //a.setTitle("Alert ASk");
+        a.getDialogPane().getButtonTypes().addAll(Yes,No);
+        a.setHeaderText("Do you want to record the game?");
+        
+        DialogPane dialogPane = a.getDialogPane();
+        dialogPane.getStylesheets().add(
+        getClass().getResource("/css/style.css").toExternalForm());
+        dialogPane.getStyleClass().add("infoDialog");
+
+        a.showAndWait();
+        if(a.getResult()==Yes)
+           {  
+               checkRecording= true;
+               DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd  HH-mm-ss");
+               LocalDateTime now = LocalDateTime.now();
+               fileName=dateTimeFormatter.format(now);
+               listOfNamesGames.add(fileName);  
+
+           }
+            else  
+                   {
+                       checkRecording=false;
+                   }
+        return checkRecording;
 }
+}
+
             
 
 
