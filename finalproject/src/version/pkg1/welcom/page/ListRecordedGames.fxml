@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="version.pkg1.welcom.page.ListRecordedGamesController">
+   <children>
+      <Button fx:id="homescreen" layoutX="23.0" layoutY="26.0" mnemonicParsing="false" onAction="#homescreen" prefHeight="31.0" prefWidth="86.0" style="-fx-background-radius: 15px; -fx-background-color: #FD9727;" text="Home" />
+      <Label layoutX="180.0" layoutY="48.0" text="Game recordings" textFill="#54cba7">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <ScrollPane fx:id="games_scroll_pan" layoutX="9.0" layoutY="102.0" prefHeight="294.0" prefWidth="585.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="243.0" prefWidth="559.0">
+               <children>
+                  <ListView fx:id="listgames_list_view" layoutX="10.0" layoutY="9.0" onMouseClicked="#selectedItem" prefHeight="266.0" prefWidth="561.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

@@ -63,5 +63,10 @@
             <Font size="18.0" />
          </font>
       </Button>
+      <Button fx:id="btn_watch_game" disable="true" layoutX="223.0" layoutY="398.0" mnemonicParsing="false" onAction="#changeSceneToWatchGame" prefHeight="39.0" prefWidth="159.0" style="-fx-background-color: FD9727; -fx-background-radius: 30;" text="Watch game" textFill="#172487">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
