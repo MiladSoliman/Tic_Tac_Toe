@@ -5,8 +5,16 @@
  */
 package version.pkg1.welcom.page;
 
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintStream;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,27 +24,41 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
+/**
+ * FXML Controller class
+ *
+ * @author USER
+ */
+
 /**
  * FXML Controller class
  *
  * @author USER
  */
 public class SignUpController implements Initializable {
-
-    /**
-     * Initializes the controller class.
-     */
+    String message;
+    DataInputStream dis;
+    PrintStream ps;
+    Socket sSocket;
+   /*Socket client;
+   ObjectOutputStream out;
+   ObjectInputStream in;
+   SignUp obj;*/
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
      @FXML
     private void GameScreen(ActionEvent event) throws Exception {
+       message="signup*hadia*hadia@gmail.com*12345678";
+        transfering(message); 
         Parent root = FXMLLoader.load(getClass().getResource("GameScreen.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+              
     }
       @FXML
       private void homescreen(ActionEvent event) throws Exception{
@@ -46,5 +68,32 @@ public class SignUpController implements Initializable {
        stage.setScene(scene);
        stage.show();
     }
+      public void transfering(String message){
+       try {
+           sSocket=new Socket ("127.0.0.1",5005);
+           ps=new PrintStream(sSocket.getOutputStream());
+           dis=new DataInputStream(sSocket.getInputStream());
+           ps.println(message);
+       } catch (IOException ex) {
+           Logger.getLogger(SignUpController.class.getName()).log(Level.SEVERE, null, ex);
+       }
+      
+      }
+   /* public void serialization(){
     
+       try {
+           client =new Socket("127.0.0.1",5005);
+           out =new ObjectOutputStream(client.getOutputStream());
+           in =new ObjectInputStream(client.getInputStream());
+           obj =new SignUp("mai","mai@gmail","1234");
+           out.writeObject(obj);
+           out.flush();
+           out.close();
+           in.close();
+           client.close();
+       } catch (IOException ex) {
+           Logger.getLogger(SignUpController.class.getName()).log(Level.SEVERE, null, ex);
+       }
+    }*/
 }
+
