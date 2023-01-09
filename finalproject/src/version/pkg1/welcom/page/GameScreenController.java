@@ -470,12 +470,9 @@ String sum="";
     btn7.setStyle("-fx-background-color: none;");
     btn8.setStyle("-fx-background-color: none;");
     btn9.setStyle("-fx-background-color: none;"); 
-<<<<<<< HEAD
 
-  watchGame();
-=======
-    
->>>>>>> 20e956cc72ef532d010f30487f1929ea7ae52009
+
+
     }
     
     public void displayName(String username) {
@@ -698,7 +695,7 @@ public void watchGame (){
         }
     }
  
-=======
+
 public boolean isRecordGame(){
                    //recording the game
        
@@ -730,7 +727,7 @@ public boolean isRecordGame(){
                        checkRecording=false;
                    }
         return checkRecording;
->>>>>>> 20e956cc72ef532d010f30487f1929ea7ae52009
+
 }
 }
 

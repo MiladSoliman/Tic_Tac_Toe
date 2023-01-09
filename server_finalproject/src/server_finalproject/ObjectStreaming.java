@@ -26,20 +26,15 @@ public class ObjectStreaming extends Thread{
 
     public ObjectStreaming() {
        while(true){
-        try {
-            this.server = new ServerSocket(5000);
-            client=server.accept();
-            out =new ObjectOutputStream(client.getOutputStream());
-            in =new ObjectInputStream(client.getInputStream());
-            start();
+       
+            
+            th.start();
             //streaming(client);
             /*out.close();
             in.close();
             client.close();
             server.close();*/
-        } catch (IOException ex) {
-            Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
             }  
     }
 
@@ -51,7 +46,10 @@ public class ObjectStreaming extends Thread{
         
             
             try {
-                
+                this.server = new ServerSocket(5000);
+            client=server.accept();
+            out =new ObjectOutputStream(client.getOutputStream());
+            in =new ObjectInputStream(client.getInputStream());
                 SignUp obj=(SignUp) in.readObject();
                 System.out.println("username="+obj.getUsername());
             } catch (IOException ex) {
