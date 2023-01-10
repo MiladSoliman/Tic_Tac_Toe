@@ -472,7 +472,6 @@ String sum="";
     btn9.setStyle("-fx-background-color: none;"); 
 
 
-
     }
     
     public void displayName(String username) {
