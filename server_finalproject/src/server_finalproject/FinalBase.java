@@ -90,29 +90,22 @@ public class FinalBase extends StackPane {
         {
             if (flag==true)
             {
-                
+                ObjectStreaming obj= new ObjectStreaming();
                     button.setText("deactivate");
                     flag=false;
-                    Player player=new Player("hadia","hadia@gmail.com","1234",50,"online");
-                try {
-                    DataAccessLayerFinal.insert(player);
-                } catch (SQLException ex) {
-                    Logger.getLogger(FinalBase.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-                
-                
-               
+                   
+                    //Player player=new Player("hadia","hadia@gmail.com","1234",50,"online");
+                //try {
+                  //  DataAccessLayerFinal.insert(player);
+                //} catch (SQLException ex) {
+                  //  Logger.getLogger(FinalBase.class.getName()).log(Level.SEVERE, null, ex);
+                //}
             }
             
             else
             {
-               
                     button.setText("activate");
                     flag=true;
-
-                
-            
             }
 
         }});
@@ -153,6 +146,7 @@ public class FinalBase extends StackPane {
          stage.setTitle("Statistics");
          stage.setScene(scene);
          stage.show();
+            //ObjectStreaming obj= new ObjectStreaming();
      
         }});
         BorderPane.setMargin(button1, new Insets(0.0, 20.0, 0.0, 0.0));

@@ -19,16 +19,16 @@ public class DataAccessLayerFinal {
         int result=0;
     DriverManager.registerDriver(new org.apache.derby.jdbc.ClientDriver());
     Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/finalproject","tictactoe","tictactoe");
-   PreparedStatement stm=con.prepareStatement("INSERT INTO PLAYERS VALUES (?,?,?,?,?)");
-     stm.setString(1, "hadia");
-     stm.setString(2, "hadia@gmail.com");
-     stm.setString(3,"1234" );
-     stm.setInt(4, 5);
-     stm.setString(5,"online" );
+     //PreparedStatement stm=con.prepareStatement("INSERT INTO PLAYERS VALUES (?,?,?,?,?)");
+     //stm.setString(1, "hadia");
+     //stm.setString(2, "hadia@gmail.com");
+     //stm.setString(3,"1234" );
+     //stm.setInt(4, 5);
+     //stm.setString(5,"online" );
      
-     result =stm.executeUpdate();
+     //result =stm.executeUpdate();
      con.commit();
-     stm.close();
+     //stm.close();
      con.close();
     return result;
     }
