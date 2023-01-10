@@ -91,6 +91,7 @@ public class FinalBase extends StackPane {
             if (flag==true)
             {
                 ObjectStreaming obj= new ObjectStreaming();
+                
                     button.setText("deactivate");
                     flag=false;
                    

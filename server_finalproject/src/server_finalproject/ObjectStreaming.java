@@ -1,19 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package server_finalproject;
 
+import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+//import java.io.ObjectInputStream;
+//import java.io.ObjectOutputStream;
+import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import static java.rmi.Naming.list;
+
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import static java.util.Collections.list;
+import java.util.HashMap;
+import java.util.List;
 import java.util.StringTokenizer;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.PauseTransition;
@@ -26,104 +31,147 @@ import javafx.scene.control.ButtonType;
  *
  * @author hadia
  */
-public class ObjectStreaming extends Thread{
-    Socket client;
-   ObjectOutputStream out;
-   ObjectInputStream in;
+public class ObjectStreaming {
+  
+   Socket client;
+   //ObjectOutputStream out;
+   //ObjectInputStream in;
    ServerSocket server;
-   Thread th =new Thread(this);
-
+   Thread th;
+   DataInputStream di;
+    PrintStream ps;
+   String [] arr;
+    String str;
+  
     public ObjectStreaming() {
-       while(true){
+        
+      
+      
         try {
-            this.server = new ServerSocket(5000);
-            client=server.accept();
-            out =new ObjectOutputStream(client.getOutputStream());
-            in =new ObjectInputStream(client.getInputStream());
-            start();
-            //streaming(client);
-            /*out.close();
-            in.close();
-            client.close();
-            server.close();*/
-        } catch (IOException ex) {
+             server = new ServerSocket(5005);
+        } catch (IOException ex) {       
             Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
         }
-            }  
-    }
-    
-    
-
-    /*public void run()
-    {
-    
-        while(true)
-        {
-            try {
-                SignUp obj=(SignUp) in.readObject();
-                System.out.println("username="+obj.getUsername());
-            } catch (IOException ex) {
-                Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
+            while(true){
+                     try {
+                        
+                         client=server.accept();
+                         new PlayerHandeler(client);
+                     } catch (IOException ex) {
                 Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
             }
+                           
+                           
+                         
             } 
-        }*/
-     public void request(){
+    }
+}
+    class PlayerHandeler extends Thread {
+    DataInputStream di ; 
+    PrintStream ps ;
+    static Vector <PlayerHandeler> playervictor = new Vector <PlayerHandeler> ();
+    static HashMap<String,Socket> connectedPlayer =new HashMap<String, Socket>();
+     static  List<String> list =  new ArrayList<String>();   
+    public PlayerHandeler (Socket client){
         try {
-            String req = in.readLine();
-            StringTokenizer s = new StringTokenizer(req,"**");
-            String senderName=s.nextToken();
-            String recivedName=s.nextToken();
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    ButtonType Yes = new ButtonType("Yes");
-                    ButtonType No = new ButtonType ("No");
-                    Alert alert = new Alert(Alert.AlertType.NONE);
-                    alert.setTitle("Confirm");
-                   // alert.setHeaderText("Required Fields Empty");
-                    alert.setContentText(senderName+"Wants To Play With you");
-                    alert.getDialogPane().getButtonTypes().addAll(Yes,No);
-                    alert.showAndWait();
-                    
-                    PauseTransition delay = new PauseTransition(Duration.ofMillis(1000));
-                    delay.setOnFinished(e -> alert.hide());
-                    Optional<ButtonType> checks = alert.showAndWait();
-                    if(checks.get()==Yes){
-                        try {
-                            out.writeChars(senderName+"Accept You Challnge");
-                            // go to game online screen 
-                        } catch (IOException ex) {
-                            Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        
-                        
-                    }
-                    else if (checks.get()==No){
-                        try {
-                            out.writeChars(recivedName+" refuese your invite");
-                        } catch (IOException ex) {
-                            Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                    else {
-                        try {
-                            out.writeChars("No Response");
-                        } catch (IOException ex) {
-                            Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                }
-            });
+           di=new DataInputStream(client.getInputStream());
+           ps=new PrintStream(client.getOutputStream());
+            //str=di.readLine();
+            PlayerHandeler.playervictor.add(this);
+            list=DataAccessLayerFinal.getConnectedPlayers();
+            for(int i =0 ; i<list.size();i++){
+            PlayerHandeler.connectedPlayer.put(list.get(i),client);
+            }
+            start();
         } catch (IOException ex) {
-            Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PlayerHandeler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PlayerHandeler.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    public void run(){
+        while(true){
+            String str;
+            try {
+                str = di.readLine();
+                 stringDivision(str);
+            } catch (IOException ex) {
+                Logger.getLogger(PlayerHandeler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           
+        }
+    }
+
+    /* public void request(String rest){
+       
+        try {
+            list =DataAccessLayerFinal.getConnectedPlayer();
+            //String req = in.readLine();
+            StringTokenizer s = new StringTokenizer(rest,"**");
+            String senderName=s.nextToken();
+            String reciverName=s.nextToken();
+            for(int i =0 ;i<list.size();i++){
+                if(reciverName.equals(list.get(i))){
+                    //list.get(i).   
+                 // list.get(i).
+                          ps.println("requset**senderName");
+                  
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+          
                  
          
-     }
+     
     
     
-    }
+
+            
+        
+
+
+
+public void stringDivision(String str){
+    //int index1=0;
+    int index2=str.indexOf("*");
+    String process =str.substring(0, index2);
+    String rest=str.substring(index2+1);
+   //String [] parts=str.split("\\*");
+   //System.out.println(process);
+                 //System.out.println(rest);
+		//for(int i=0;i<parts.length;i++)
+		//System.out.println(parts[i]);
+                //System.out.println(list.get(0));
+                whichProcess(process,rest);
+}
+   public void whichProcess(String process,String rest){
+       switch (process){
+               case"signup":{
+               String [] parts=rest.split("\\*");
+               System.out.println(parts[0]);
+               Player p=new Player(parts[0], parts[1], parts[2], 0,"online");
+           try {
+               DataAccessLayerFinal.insert(p);
+           } catch (SQLException ex) {
+               Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
+           }
+               }
+               break;
+               case"request":{
+                   //request(rest);
+               }
+               break;
+             
+       }
+               
+            }
+
+   
+   }
+
+
+
     
 
