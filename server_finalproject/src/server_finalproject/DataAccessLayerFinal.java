@@ -8,7 +8,11 @@ package server_finalproject;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -32,4 +36,23 @@ public class DataAccessLayerFinal {
      con.close();
     return result;
     }
+     public static List<Player>getPlayers () throws SQLException{
+        DriverManager.registerDriver(new org.apache.derby.jdbc.ClientDriver());
+        Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/javalastlab","root","root"); 
+        Statement st = con.createStatement();
+        ResultSet res = st.executeQuery("SELECT * FROM  PLAYERS "); 
+        List<Player> list = query(res);
+        con.close();                                     
+        st.close();
+        return list; 
+      }
+
+    private static List<Player> query(ResultSet res) throws SQLException {
+        List<Player> list =  new ArrayList<>();
+        while  (res.next()){   
+        Player player = new Player(res.getString(1),res.getString(2),res.getString(3),res.getInt(4),res.getString(5));
+        list.add(player);
+        }
+    return list;
+    } 
     }

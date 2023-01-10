@@ -28,13 +28,13 @@ public class ObjectStreaming extends Thread{
     PrintStream ps;
    String [] arr;
     String str;
+    List<Player> list =  new ArrayList<>();
 
     public ObjectStreaming() {
-        
-      
-      
+
         try {
              server = new ServerSocket(5005);
+             
             
              th=new Thread(new Runnable() {
                  @Override
@@ -47,14 +47,14 @@ public class ObjectStreaming extends Thread{
                          dis=new DataInputStream(client.getInputStream());
                          ps=new PrintStream(client.getOutputStream());
                          str=dis.readLine();
-                           
+                         
                            
                          if(str.length()>0){
                          stringDivision(str);
                          System.out.println(str);
                          }
                          //SignUp obj=(SignUp) in.readObject();
-                //System.out.println("username="+obj.getUsername());
+                        //System.out.println("username="+obj.getUsername());
                      } catch (IOException ex) { 
                     Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
                 } 
@@ -63,36 +63,10 @@ public class ObjectStreaming extends Thread{
              });
              
              th.start();
-            //streaming(client);
-            /*out.close();
-            in.close();
-            client.close();
-            server.close();*/
-         
            // }  
     }  catch (IOException ex) { 
            Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
        } 
-
-    /*public void run()
-    {
-    
-        //while(true)
-        //{
-         
-            
-            try {
-               
-                
-                SignUp obj=(SignUp) in.readObject();
-                System.out.println("username="+obj.getUsername());
-            } catch (IOException ex) {
-                Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            //}
-        }*/
     }
 
 public void stringDivision(String str){
@@ -115,6 +89,11 @@ public void stringDivision(String str){
                System.out.println(parts[0]);
                Player p=new Player(parts[0], parts[1], parts[2], 0,"online");
            try {
+               int i=0;
+               while(p.getUsername()!=list.get(i).getUsername()){
+              i++;
+               }
+               
                DataAccessLayerFinal.insert(p);
            } catch (SQLException ex) {
                Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);

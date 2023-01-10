@@ -23,13 +23,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-
-/**
- * FXML Controller class
- *
- * @author USER
- */
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -37,6 +33,20 @@ import javafx.stage.Stage;
  * @author USER
  */
 public class SignUpController implements Initializable {
+
+    @FXML
+    private TextField username;
+    @FXML
+    private TextField email;
+    @FXML
+    private PasswordField password;
+    @FXML
+    private PasswordField confirm_password;
+    @FXML
+    private Button signup;
+    @FXML
+    private Button homescreen;
+
     String message;
     DataInputStream dis;
     PrintStream ps;
@@ -51,7 +61,8 @@ public class SignUpController implements Initializable {
     }    
      @FXML
     private void GameScreen(ActionEvent event) throws Exception {
-       message="signup*hadia*hadia@gmail.com*12345678";
+        
+       message="signup*"+username.getText()+"*"+email.getText()+"*"+password.getText();
         transfering(message); 
         Parent root = FXMLLoader.load(getClass().getResource("GameScreen.fxml"));
         Scene scene = new Scene(root);
@@ -96,4 +107,3 @@ public class SignUpController implements Initializable {
        }
     }*/
 }
-
