@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -15,18 +16,19 @@
             <Image url="@WhatsApp%20Image%202022-12-27%20at%206.17.11%20PM.jpeg" />
          </image>
       </ImageView>
-      <Label layoutX="256.0" layoutY="48.0" text="Login" textFill="#0fe1fa">
+      <Label layoutX="264.0" layoutY="14.0" text="Login" textFill="#54cba7">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <TextField layoutX="177.0" layoutY="134.0" prefHeight="31.0" prefWidth="257.0" />
-      <TextField accessibleRole="PASSWORD_FIELD" layoutX="175.0" layoutY="192.0" prefHeight="31.0" prefWidth="257.0" />
       <Button fx:id="signup" layoutX="345.0" layoutY="317.0" mnemonicParsing="false" onAction="#signup" prefHeight="43.0" prefWidth="89.0" style="-fx-background-radius: 15px; -fx-background-color: beige;" text="sign up " />
-      <Label layoutX="175.0" layoutY="113.0" text="username" textFill="#0ea5cf" />
-      <Label layoutX="175.0" layoutY="171.0" text="password" textFill="#00c3ff" />
       <Button fx:id="login" layoutX="234.0" layoutY="248.0" mnemonicParsing="false" onAction="#GameScreen" prefHeight="43.0" prefWidth="133.0" style="-fx-background-radius: 15px; -fx-background-color: beige;" text="login" />
       <Label layoutX="196.0" layoutY="334.0" text="Don't have account " />
       <Button fx:id="homescreen" layoutX="31.0" layoutY="33.0" mnemonicParsing="false" onAction="#homescreen" prefHeight="43.0" prefWidth="81.0" style="-fx-background-radius: 15px; -fx-background-color: beige;" text="Home" />
+      <Label fx:id="login_error" layoutX="164.0" layoutY="76.0" prefHeight="31.0" prefWidth="331.0" textFill="RED" />
+      <PasswordField fx:id="password" layoutX="180.0" layoutY="195.0" prefHeight="31.0" prefWidth="257.0" />
+      <Label layoutX="181.0" layoutY="174.0" text="Password" textFill="#54cba7" />
+      <TextField fx:id="username" layoutX="180.0" layoutY="126.0" prefHeight="31.0" prefWidth="257.0" />
+      <Label layoutX="181.0" layoutY="97.0" text="Username" textFill="#54cba7" />
    </children>
 </AnchorPane>

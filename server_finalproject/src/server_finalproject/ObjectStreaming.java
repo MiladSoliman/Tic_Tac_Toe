@@ -109,6 +109,7 @@ public void stringDivision(String str){
                 whichProcess(process,rest);
 }
    public void whichProcess(String process,String rest){
+       
        switch (process){
                case"signup":{
                String [] parts=rest.split("\\*");
@@ -121,10 +122,31 @@ public void stringDivision(String str){
            }
                }
                break;
+               
+               case"login":{
+               String [] parts=rest.split("\\*");
+               System.out.println(parts[0]);               
+               System.out.println(parts[1]);
+
+               Player player=new Player(parts[0], parts[1]);
+           try {
+               int isValidAccount=DataAccessLayerFinal.validateLogin(player);
+               if (isValidAccount==1){
+                   ps.println("valid account");
+                   
+               }else {
+                   ps.println("invalid account");
+
+               }
+           } catch (SQLException ex) {
+               Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
+           }
+               }
+               break;
              
        }
                
-            }
+    }
 
    
    }
