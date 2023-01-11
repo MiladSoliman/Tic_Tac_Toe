@@ -44,55 +44,59 @@ public class ObjectStreaming {
     String str;
   
     public ObjectStreaming() {
-        
-      
-      
         try {
              server = new ServerSocket(5005);
         } catch (IOException ex) {       
             Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
         }
-            while(true){
-                     try {
+           th=new Thread(()->{
+                   while(true){
+                     try {                  
                         
                          client=server.accept();
                          new PlayerHandeler(client);
+                        
                      } catch (IOException ex) {
                 Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
-            }
-                           
-                           
-                         
+                     }
             } 
+    });
     }
 }
     class PlayerHandeler extends Thread {
     DataInputStream di ; 
     PrintStream ps ;
+    private String username;
+    private String email;
+    private String password;
+    private int score;
+    private String status;
+    Socket sc;
+    
     static Vector <PlayerHandeler> playervictor = new Vector <PlayerHandeler> ();
-    static HashMap<String,Socket> connectedPlayer =new HashMap<String, Socket>();
-     static  List<String> list =  new ArrayList<String>();   
+   // static HashMap<String,Socket> connectedPlayer =new HashMap<String, Socket>();
+   //  static  List<String> list =  new ArrayList<String>();   
     public PlayerHandeler (Socket client){
         try {
+            sc=client;
            di=new DataInputStream(client.getInputStream());
            ps=new PrintStream(client.getOutputStream());
             //str=di.readLine();
-            PlayerHandeler.playervictor.add(this);
-            list=DataAccessLayerFinal.getConnectedPlayers();
-            for(int i =0 ; i<list.size();i++){
-            PlayerHandeler.connectedPlayer.put(list.get(i),client);
-            }
-            start();
-        } catch (IOException ex) {
-            Logger.getLogger(PlayerHandeler.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+           // PlayerHandeler.playervictor.add(this);
+          //  list=DataAccessLayerFinal.getConnectedPlayers();
+          //  for(int i =0 ; i<list.size();i++){
+         //   PlayerHandeler.connectedPlayer.put(list.get(i),client);
+            } catch (IOException ex) {
             Logger.getLogger(PlayerHandeler.class.getName()).log(Level.SEVERE, null, ex);
         }
+            //start();
+         
     }
     public void run(){
         while(true){
             String str;
             try {
+                start();
                 str = di.readLine();
                  stringDivision(str);
             } catch (IOException ex) {
@@ -102,37 +106,8 @@ public class ObjectStreaming {
         }
     }
 
-    /* public void request(String rest){
-       
-        try {
-            list =DataAccessLayerFinal.getConnectedPlayer();
-            //String req = in.readLine();
-            StringTokenizer s = new StringTokenizer(rest,"**");
-            String senderName=s.nextToken();
-            String reciverName=s.nextToken();
-            for(int i =0 ;i<list.size();i++){
-                if(reciverName.equals(list.get(i))){
-                    //list.get(i).   
-                 // list.get(i).
-                          ps.println("requset**senderName");
-                  
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-          
-                 
-         
-     
-    
-    
-
-            
+   
         
-
-
-
 public void stringDivision(String str){
     //int index1=0;
     int index2=str.indexOf("*");
@@ -159,8 +134,13 @@ public void stringDivision(String str){
            }
                }
                break;
+               case"Login":{
+                  // login();
+                   PlayerHandeler.playervictor.add(this);
+               }
+               
                case"request":{
-                   //request(rest);
+                   request(rest);
                }
                break;
              
@@ -168,5 +148,18 @@ public void stringDivision(String str){
                
             }
 
-   
-   }
+    public void request(String rest){
+       
+         //list =DataAccessLayerFinal.getConnectedPlayers();
+         //String req = in.readLine();
+         StringTokenizer s = new StringTokenizer(rest,"**");
+         String senderName=s.nextToken();
+         String reciverName=s.nextToken();
+         for(int i =0 ;i<playervictor.size();i++){
+             if(reciverName.equals(playervictor.get(i).username)){
+               playervictor.get(i).ps.println("requset**senderName");
+                 
+             }
+         }
+     } 
+}

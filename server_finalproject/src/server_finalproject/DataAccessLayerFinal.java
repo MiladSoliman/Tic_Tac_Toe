@@ -38,25 +38,26 @@ public class DataAccessLayerFinal {
      con.close();
     return result;
     }
-    
-     private static Vector<String> query(ResultSet rs) throws SQLException {
-        Vector<String> list =  new Vector<>();
-        while  (rs.next()){   
-        String userName = (rs.getString(1));
-        list.add(userName);
-        }
-        
-        return list;
-    }
-       public static List<String>getConnectedPlayer() throws SQLException{
+     public static List<String>getConnectedPlayers () throws SQLException{
         DriverManager.registerDriver(new org.apache.derby.jdbc.ClientDriver());
         Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/finalproject","tictactoe","tictactoe");
         Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT USERNAME FROM  PLAYERS WHERE STATUS LIKE ONLINE "); 
-         Vector<String> list = query(rs);
+        ResultSet rs = stmt.executeQuery("SELECT USERNAME FROM PLAYERS WHEER STATUS LIKE ONLINE"); 
+        List<String> list = query(rs);
+        
         con.close();                                     
         stmt.close();
         return list;
         
+    }
+   
+     private static List<String> query(ResultSet rs) throws SQLException {
+        List<String> list =  new ArrayList<>();
+        while  (rs.next()){   
+        String userName = rs.getString(1);
+        list.add(userName);
+        }
+        
+        return list;
     }
 }
