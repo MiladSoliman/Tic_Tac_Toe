@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package version.pkg1.welcom.page;
 
 import java.io.DataInputStream;
@@ -90,20 +85,4 @@ public class SignUpController implements Initializable {
        }
       
       }
-   /* public void serialization(){
-    
-       try {
-           client =new Socket("127.0.0.1",5005);
-           out =new ObjectOutputStream(client.getOutputStream());
-           in =new ObjectInputStream(client.getInputStream());
-           obj =new SignUp("mai","mai@gmail","1234");
-           out.writeObject(obj);
-           out.flush();
-           out.close();
-           in.close();
-           client.close();
-       } catch (IOException ex) {
-           Logger.getLogger(SignUpController.class.getName()).log(Level.SEVERE, null, ex);
-       }
-    }*/
 }

@@ -14,10 +14,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Vector;
+
+
 /**
  *
  * @author hadia
  */
+
 public class DataAccessLayerFinal {
     public static int insert (Player player) throws SQLException{
         int result=0;
@@ -36,18 +40,19 @@ public class DataAccessLayerFinal {
      con.close();
     return result;
     }
+
      public static List<Player>getPlayers () throws SQLException{
         DriverManager.registerDriver(new org.apache.derby.jdbc.ClientDriver());
         Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/javalastlab","root","root"); 
         Statement st = con.createStatement();
         ResultSet res = st.executeQuery("SELECT * FROM  PLAYERS "); 
-        List<Player> list = query(res);
+        List<Player> list = query1(res);
         con.close();                                     
         st.close();
         return list; 
       }
 
-    private static List<Player> query(ResultSet res) throws SQLException {
+    private static List<Player> query1(ResultSet res) throws SQLException {
         List<Player> list =  new ArrayList<>();
         while  (res.next()){   
         Player player = new Player(res.getString(1),res.getString(2),res.getString(3),res.getInt(4),res.getString(5));
@@ -55,4 +60,31 @@ public class DataAccessLayerFinal {
         }
     return list;
     } 
+
+    public static List<String>getConnectedPlayers () throws SQLException{
+        DriverManager.registerDriver(new org.apache.derby.jdbc.ClientDriver());
+        Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/finalproject","tictactoe","tictactoe");
+        Statement stmt = con.createStatement();
+        
+        PreparedStatement prepStmt = con.prepareStatement("SELECT USERNAME FROM PLAYERS WHERE STATUS = ?");
+        prepStmt.setString(1, "online");
+        ResultSet rs = prepStmt.executeQuery();
+        List<String> list = query(rs);
+        
+        con.close();                                     
+        stmt.close();
+        return list;
+        
     }
+   
+     private static List<String> query(ResultSet rs) throws SQLException {
+        List<String> list =  new ArrayList<>();
+        while  (rs.next()){   
+        String userName = rs.getString(1);
+        list.add(userName);
+        }
+        
+        return list;
+    }
+   
+}

@@ -15,10 +15,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -243,23 +245,39 @@ private void checkIsWin(){
     if(playerOneWin){
          playerOneScore +=1;
          setScore1(playerOneScore);
-        diaolg = new Dialog<>();
-        diaolg.setTitle("CONGRATULATIONS");
-        diaolg.setContentText(player1.getText()+" "+"win");
         ButtonType ok = new ButtonType("Ok", ButtonData.OK_DONE);
-        diaolg.getDialogPane().getButtonTypes().add(ok);
-        diaolg.show();
+      
+        Alert a = new Alert(Alert.AlertType.NONE); 
+        a.setTitle("CONGRATULATION");
+        a.getDialogPane().getButtonTypes().addAll(ok);
+        a.setHeaderText(player1.getText()+" "+"win");
+        
+        DialogPane dialogPane = a.getDialogPane();
+        dialogPane.getStylesheets().add(
+        getClass().getResource("/css/style.css").toExternalForm());
+        dialogPane.getStyleClass().add("infoDialog");
+        a.showAndWait();
+
         playerOneWin = false;
        
     
     }else if(playerTwoWin){
        playerTwoScore+=1;
        setScore2(playerTwoScore);
-       diaolg = new Dialog<>();
-       diaolg.setTitle("CONGRATULATIONS");
-       diaolg.setContentText(player2.getText()+" "+"win");
-       ButtonType ok = new ButtonType("Ok", ButtonData.OK_DONE);
-       diaolg.getDialogPane().getButtonTypes().add(ok);
+      ButtonType ok = new ButtonType("Ok", ButtonData.OK_DONE);
+      
+        Alert a = new Alert(Alert.AlertType.NONE); 
+        a.setTitle("CONGRATULATION");
+        a.getDialogPane().getButtonTypes().addAll(ok);
+        a.setHeaderText(player2.getText()+" "+"win");
+        
+        DialogPane dialogPane = a.getDialogPane();
+        dialogPane.getStylesheets().add(
+        getClass().getResource("/css/style.css").toExternalForm());
+        dialogPane.getStyleClass().add("infoDialog");
+
+        a.showAndWait();
+     
        playerTwoWin = false;
        
     }else if(checkIsDraw()){   
@@ -316,10 +334,7 @@ private void playagain(ActionEvent event) throws IOException  {
     btn6.setStyle("-fx-background-color: none;");
     btn7.setStyle("-fx-background-color: none;");
     btn8.setStyle("-fx-background-color: none;");
-    btn9.setStyle("-fx-background-color: none;");
-    
- 
-    
+    btn9.setStyle("-fx-background-color: none;");  
 }
 
 public void setScore1(int x){

@@ -472,8 +472,6 @@ String sum="";
     btn9.setStyle("-fx-background-color: none;"); 
 
 
-  watchGame();
-
     }
     
     public void displayName(String username) {
@@ -609,7 +607,7 @@ public void recordGame(String Id,String x, boolean isrecoredGame){
 
 
 
-<<<<<<< HEAD
+
 */
 public void watchGame (){
     th=new Thread(this);
