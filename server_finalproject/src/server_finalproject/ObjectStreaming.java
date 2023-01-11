@@ -87,19 +87,14 @@ public class ObjectStreaming extends Thread{
            ps=new PrintStream(client.getOutputStream());
             //str=di.readLine();
             PlayerHandeler.playervictor.add(this);
+
                
-            list=DataAccessLayerFinal.getConnectedPlayers();
-           for(int i =0 ; i<list.size();i++){
-            PlayerHandeler.connectedPlayer.put(list.get(i),client);
-            } 
-           //System.out.println(PlayerHandeler.connectedPlayer.get("milad")); 
-            start();
+          
+           start();
          
-    }   catch (IOException ex) {
+    }   catch (IOException ex) {   
             Logger.getLogger(PlayerHandeler.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(PlayerHandeler.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }   
     }
     @Override
     public void run(){
@@ -118,28 +113,19 @@ public class ObjectStreaming extends Thread{
    
         
 public void stringDivision(String str){
-    //int index1=0;
     int index2=str.indexOf("*");
     String process =str.substring(0, index2);
     String rest=str.substring(index2+1);
-   //String [] parts=str.split("\\*");
-   //System.out.println(process);
-                 //System.out.println(rest);
-		//for(int i=0;i<parts.length;i++)
-		//System.out.println(parts[i]);
-                //System.out.println(list.get(0));
                 whichProcess(process,rest);
 }
    public void whichProcess(String process,String rest){
+       
        switch (process){
                case"signup":{
                String [] parts=rest.split("\\*");
                //System.out.println(parts[0]);
                Player p=new Player(parts[0], parts[1], parts[2], 0,"online");
-               username=parts[0];
-               PlayerHandeler.playervictor.add(this);
-               System.out.println(PlayerHandeler.playervictor.get(0).username);
-               System.out.println(PlayerHandeler.playervictor.get(0).sc);
+              
            try {
                DataAccessLayerFinal.insert(p);
            } catch (SQLException ex) {
@@ -147,20 +133,37 @@ public void stringDivision(String str){
            }
                }
                break;
-               case"Login":{
-                  // login();
-                 
-               }
+
                
                case"request":{
                  //  request(rest);
                }
-               break;
-             
-       }
                
-            }
+               case"login":{
+               String [] parts=rest.split("\\*");
+               System.out.println(parts[0]);               
+               System.out.println(parts[1]);
+                username=parts[0];
+               PlayerHandeler.playervictor.add(this);
+               System.out.println(PlayerHandeler.playervictor.get(0).username);
+               System.out.println(PlayerHandeler.playervictor.get(0).sc);
 
+               Player player=new Player(parts[0], parts[1]);
+           try {
+               int isValidAccount=DataAccessLayerFinal.validateLogin(player);
+               if (isValidAccount==1){
+                   ps.println("valid account");
+                   
+               }else {
+                   ps.println("invalid account");
+
+
+               }
+           } catch (SQLException ex) {
+               Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
+           }
+        }          
+    }
     /*public void request(String rest){
       
          //list =DataAccessLayerFinal.getConnectedPlayers();
@@ -176,3 +179,11 @@ public void stringDivision(String str){
          }
      } */
 }
+
+   
+   }
+    
+    
+    
+    
+
