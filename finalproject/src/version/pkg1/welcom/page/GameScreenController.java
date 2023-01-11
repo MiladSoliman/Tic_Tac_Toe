@@ -607,7 +607,7 @@ public void recordGame(String Id,String x, boolean isrecoredGame){
 
 
 
-<<<<<<< HEAD
+
 */
 public void watchGame (){
     th=new Thread(this);

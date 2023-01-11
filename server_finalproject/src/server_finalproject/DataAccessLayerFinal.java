@@ -10,11 +10,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 /**
  *
  * @author hadia
  */
+
 public class DataAccessLayerFinal {
     public static int insert (Player player) throws SQLException{
         int result=0;
@@ -56,4 +61,24 @@ public class DataAccessLayerFinal {
         }
 
     
+     private static Vector<String> query(ResultSet rs) throws SQLException {
+        Vector<String> list =  new Vector<>();
+        while  (rs.next()){   
+        String userName = (rs.getString(1));
+        list.add(userName);
+        }
+        
+        return list;
     }
+       public static List<String>getConnectedPlayer() throws SQLException{
+        DriverManager.registerDriver(new org.apache.derby.jdbc.ClientDriver());
+        Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/finalproject","tictactoe","tictactoe");
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT USERNAME FROM  PLAYERS WHERE STATUS LIKE ONLINE "); 
+         Vector<String> list = query(rs);
+        con.close();                                     
+        stmt.close();
+        return list;
+        
+    }
+}

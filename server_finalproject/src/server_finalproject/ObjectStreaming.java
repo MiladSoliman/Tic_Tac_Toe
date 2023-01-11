@@ -7,93 +7,131 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import static java.rmi.Naming.list;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Optional;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import static java.util.Collections.list;
+import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 
 /**
  *
  * @author hadia
  */
-public class ObjectStreaming extends Thread{
+public class ObjectStreaming {
+  
    Socket client;
    //ObjectOutputStream out;
    //ObjectInputStream in;
    ServerSocket server;
    Thread th;
-   DataInputStream dis;
+   DataInputStream di;
     PrintStream ps;
    String [] arr;
     String str;
-
+  
     public ObjectStreaming() {
         
       
       
         try {
              server = new ServerSocket(5005);
-            
-             th=new Thread(new Runnable() {
-                 @Override
-                 public void run() {
-                    
+        } catch (IOException ex) {       
+            Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
+        }
             while(true){
                      try {
-                         
+                        
                          client=server.accept();
-                         dis=new DataInputStream(client.getInputStream());
-                         ps=new PrintStream(client.getOutputStream());
-                         str=dis.readLine();
-                           
-                           
-                         if(str.length()>0){
-                         stringDivision(str);
-                         System.out.println(str);
-                         }
-                         //SignUp obj=(SignUp) in.readObject();
-                //System.out.println("username="+obj.getUsername());
-                     } catch (IOException ex) { 
-                    Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
-                } 
-                 }
-                 }
-             });
-             
-             th.start();
-            //streaming(client);
-            /*out.close();
-            in.close();
-            client.close();
-            server.close();*/
-         
-           // }  
-    }  catch (IOException ex) { 
-           Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
-       } 
-
-    /*public void run()
-    {
-    
-        //while(true)
-        //{
-         
-            
-            try {
-               
-                
-                SignUp obj=(SignUp) in.readObject();
-                System.out.println("username="+obj.getUsername());
-            } catch (IOException ex) {
-                Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
+                         new PlayerHandeler(client);
+                     } catch (IOException ex) {
                 Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
             }
-            //}
-        }*/
+                           
+                           
+                         
+            } 
     }
+}
+    class PlayerHandeler extends Thread {
+    DataInputStream di ; 
+    PrintStream ps ;
+    static Vector <PlayerHandeler> playervictor = new Vector <PlayerHandeler> ();
+    static HashMap<String,Socket> connectedPlayer =new HashMap<String, Socket>();
+     static  List<String> list =  new ArrayList<String>();   
+    public PlayerHandeler (Socket client){
+        try {
+           di=new DataInputStream(client.getInputStream());
+           ps=new PrintStream(client.getOutputStream());
+            //str=di.readLine();
+            PlayerHandeler.playervictor.add(this);
+            list=DataAccessLayerFinal.getConnectedPlayer();
+            for(int i =0 ; i<list.size();i++){
+            PlayerHandeler.connectedPlayer.put(list.get(i),client);
+            }
+            start();
+        } catch (IOException ex) {
+            Logger.getLogger(PlayerHandeler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PlayerHandeler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void run(){
+        while(true){
+            String str;
+            try {
+                str = di.readLine();
+                 stringDivision(str);
+            } catch (IOException ex) {
+                Logger.getLogger(PlayerHandeler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           
+        }
+    }
+
+    /* public void request(String rest){
+       
+        try {
+            list =DataAccessLayerFinal.getConnectedPlayer();
+            //String req = in.readLine();
+            StringTokenizer s = new StringTokenizer(rest,"**");
+            String senderName=s.nextToken();
+            String reciverName=s.nextToken();
+            for(int i =0 ;i<list.size();i++){
+                if(reciverName.equals(list.get(i))){
+                    //list.get(i).   
+                 // list.get(i).
+                          ps.println("requset**senderName");
+                  
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+          
+                 
+         
+     
+    
+    
+
+            
+        
+
+
 
 public void stringDivision(String str){
     //int index1=0;
@@ -141,8 +179,7 @@ public void stringDivision(String str){
            } catch (SQLException ex) {
                Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
            }
-               }
-               break;
+               
              
        }
                
@@ -150,3 +187,7 @@ public void stringDivision(String str){
 
    
    }
+    
+    
+    
+    }
