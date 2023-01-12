@@ -127,8 +127,13 @@ public void stringDivision(String str){
                Player p=new Player(parts[0], parts[1], parts[2], 0,"online");
               
            try {
+               String isValid=DataAccessLayerFinal.validateSignup(p);
+               if(isValid=="valid"){
                DataAccessLayerFinal.insert(p);
-           } catch (SQLException ex) {
+               }
+               ps.println(isValid);
+               }
+                catch (SQLException ex) {
                Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
            }
                }

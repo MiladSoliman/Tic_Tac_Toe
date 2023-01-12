@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.util.Vector;
+import static javax.swing.UIManager.getString;
 
 
 /**
@@ -41,7 +42,7 @@ public class DataAccessLayerFinal {
     return result;
     }
 
-     
+
      public static List<Player>getPlayers () throws SQLException{
         DriverManager.registerDriver(new org.apache.derby.jdbc.ClientDriver());
         Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/finalproject","tictactoe","tictactoe"); 
@@ -62,7 +63,7 @@ public class DataAccessLayerFinal {
         return list;
     }
     
-    //validate login
+        //validate login
         public static int validateLogin (Player player) throws SQLException{
            int result; 
         
@@ -94,4 +95,47 @@ public class DataAccessLayerFinal {
     return list;
     } 
 
-}
+    public static List<String>getConnectedPlayers () throws SQLException{
+        DriverManager.registerDriver(new org.apache.derby.jdbc.ClientDriver());
+        Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/finalproject","tictactoe","tictactoe");
+        Statement stmt = con.createStatement();
+        
+        PreparedStatement prepStmt = con.prepareStatement("SELECT USERNAME FROM PLAYERS WHERE STATUS = ?");
+        prepStmt.setString(1, "online");
+        ResultSet rs = prepStmt.executeQuery();
+        List<String> list = query(rs);
+        
+        con.close();                                     
+        stmt.close();
+        return list;
+        
+    }
+   
+  
+   public static String validateSignup(Player player) throws SQLException{
+       String isValid = null;
+            
+    DriverManager.registerDriver(new org.apache.derby.jdbc.ClientDriver());
+    Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/finalproject","tictactoe","tictactoe");
+    PreparedStatement prepStmt = con.prepareStatement("select * from players where username = ?");
+    PreparedStatement prepStmt2 = con.prepareStatement("select * from players where email = ?");
+            prepStmt.setString(1, player.getUsername());
+            prepStmt2.setString(1, player.getEmail());
+            ResultSet rs = prepStmt.executeQuery();
+            ResultSet res = prepStmt2.executeQuery();
+            if(rs.next()&&res.next()){
+                isValid="not valid username or email";
+            }
+            else if(rs.next()){
+            isValid="not valid username";
+            }
+            else if(res.next()){
+            isValid="not valid email";
+            }
+            else{
+            isValid="valid";
+            }
+        
+        return isValid;
+            }
+        }
