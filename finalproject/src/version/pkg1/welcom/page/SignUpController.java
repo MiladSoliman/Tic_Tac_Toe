@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package version.pkg1.welcom.page;
 
 import java.io.DataInputStream;
@@ -23,13 +18,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-
-/**
- * FXML Controller class
- *
- * @author USER
- */
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -37,6 +28,20 @@ import javafx.stage.Stage;
  * @author USER
  */
 public class SignUpController implements Initializable {
+
+    @FXML
+    private TextField username;
+    @FXML
+    private TextField email;
+    @FXML
+    private PasswordField password;
+    @FXML
+    private PasswordField confirm_password;
+    @FXML
+    private Button signup;
+    @FXML
+    private Button homescreen;
+
     String message;
     DataInputStream dis;
     PrintStream ps;
@@ -51,7 +56,8 @@ public class SignUpController implements Initializable {
     }    
      @FXML
     private void GameScreen(ActionEvent event) throws Exception {
-       message="signup*hadia*hadia@gmail.com*12345678";
+        
+       message="signup*"+username.getText()+"*"+email.getText()+"*"+password.getText();
         transfering(message); 
         Parent root = FXMLLoader.load(getClass().getResource("GameScreen.fxml"));
         Scene scene = new Scene(root);
@@ -79,21 +85,4 @@ public class SignUpController implements Initializable {
        }
       
       }
-   /* public void serialization(){
-    
-       try {
-           client =new Socket("127.0.0.1",5005);
-           out =new ObjectOutputStream(client.getOutputStream());
-           in =new ObjectInputStream(client.getInputStream());
-           obj =new SignUp("mai","mai@gmail","1234");
-           out.writeObject(obj);
-           out.flush();
-           out.close();
-           in.close();
-           client.close();
-       } catch (IOException ex) {
-           Logger.getLogger(SignUpController.class.getName()).log(Level.SEVERE, null, ex);
-       }
-    }*/
 }
-

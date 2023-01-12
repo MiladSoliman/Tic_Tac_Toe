@@ -63,5 +63,11 @@ class Player {
         this.score = score;
         this.status = status;
     }
+    
+     public Player( String username, String password) {
+        this.username = username;
+        this.password = password;
+
+    }
                    
 }
