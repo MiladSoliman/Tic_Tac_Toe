@@ -45,7 +45,7 @@ public class LoginController implements Initializable {
     private PasswordField password;
     @FXML
     private TextField username;
-    
+
     //validate user
     String message;
     Socket serverSocket;
@@ -58,58 +58,63 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
-  @FXML
+    @FXML
     private void GameScreen(ActionEvent event) throws Exception {
-        message="login*"+username.getText()+"*"+password.getText();
-        boolean is_valid_account=transfering(message);
-        if(is_valid_account){
-        
-        Parent root = FXMLLoader.load(getClass().getResource("OnlineGameScreen.fxml"));
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
-        }else{
+        message = "login*" + username.getText() + "*" + password.getText();
+        boolean is_valid_account = transfering(message);
+        if (is_valid_account) {
+            String name = username.getText();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ListOnlinePlayers.fxml"));
+            Parent root = loader.load();
+            ListOnlinePlayersController listOnlinePlayersController = loader.getController();
+            listOnlinePlayersController.displayName(name);
+
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } else {
             login_error.setText("Sorry! your username or password is not valid");
         }
     }
+
     @FXML
-       private void signup(ActionEvent event) throws Exception {
+    private void signup(ActionEvent event) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("signUp.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
- @FXML
-      private void homescreen(ActionEvent event) throws Exception{
-       Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-       Scene scene = new Scene(root); 
-       Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-       stage.setScene(scene);
-       stage.show();
+
+    @FXML
+    private void homescreen(ActionEvent event) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     private boolean transfering(String message) {
-        boolean is_valid_account=false;
+        boolean is_valid_account = false;
         try {
-            serverSocket = new Socket("127.0.0.1",5005);
-            ps= new PrintStream(serverSocket.getOutputStream());
-            dis= new DataInputStream(serverSocket.getInputStream());
+            serverSocket = new Socket("127.0.0.1", 5005);
+            ps = new PrintStream(serverSocket.getOutputStream());
+            dis = new DataInputStream(serverSocket.getInputStream());
             ps.println(message);
-            String isValidAccount=dis.readLine();
-            if (isValidAccount.equalsIgnoreCase("valid account")){
-                is_valid_account=true;
+            String isValidAccount = dis.readLine();
+            if (isValidAccount.equalsIgnoreCase("valid account")) {
+                is_valid_account = true;
             }
-            
 
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-     return    is_valid_account;
+
+        return is_valid_account;
     }
-    
+
 }
