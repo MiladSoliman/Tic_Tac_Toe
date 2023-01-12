@@ -41,7 +41,7 @@ public class DataAccessLayerFinal {
     return result;
     }
 
-
+     
      public static List<Player>getPlayers () throws SQLException{
         DriverManager.registerDriver(new org.apache.derby.jdbc.ClientDriver());
         Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/tictactoe","tictactoe","tictactoe"); 
@@ -112,4 +112,5 @@ public class DataAccessLayerFinal {
    
   
    
+
 }

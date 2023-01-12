@@ -78,15 +78,15 @@ public class ObjectStreaming extends Thread{
     Socket sc;
     
     static Vector <PlayerHandeler> playervictor = new Vector <PlayerHandeler> ();
-   static HashMap<String,Socket> connectedPlayer =new HashMap<String, Socket>();
-    static  List<String> list =  new ArrayList<String>();   
+   //static HashMap<String,Socket> connectedPlayer =new HashMap<String, Socket>();
+   // static  List<String> list =  new ArrayList<String>();   
     public PlayerHandeler (Socket client){
         try {
             sc=client;
            di=new DataInputStream(client.getInputStream());
            ps=new PrintStream(client.getOutputStream());
             //str=di.readLine();
-            PlayerHandeler.playervictor.add(this);
+            //PlayerHandeler.playervictor.add(this);
 
                
           
@@ -136,11 +136,26 @@ public void stringDivision(String str){
 
                
                case"request":{
-                 //  request(rest);
+                 request(rest);
                }
                
                case"login":{
-               String [] parts=rest.split("\\*");
+                login(rest);
+               }
+               case"refused":{
+                   rejected(rest);
+               }
+               case"accept":{
+                   accept(rest);
+               }
+               case"No Response":{
+                   noResponse(rest);
+               }
+    }
+   }
+   
+   public void login(String rest){
+          String [] parts=rest.split("\\*");
                System.out.println(parts[0]);               
                System.out.println(parts[1]);
                 username=parts[0];
@@ -162,26 +177,64 @@ public void stringDivision(String str){
            } catch (SQLException ex) {
                Logger.getLogger(ObjectStreaming.class.getName()).log(Level.SEVERE, null, ex);
            }
-        }          
-    }
-    /*public void request(String rest){
+   }
+   
+   
+   
+   
+    public void request(String rest){
       
          //list =DataAccessLayerFinal.getConnectedPlayers();
          //String req = in.readLine();
-         StringTokenizer s = new StringTokenizer(rest,"**");
+         StringTokenizer s = new StringTokenizer(rest,"*");
          String senderName=s.nextToken();
          String reciverName=s.nextToken();
          for(int i =0 ;i<playervictor.size();i++){
              if(reciverName.equals(playervictor.get(i).username)){
-               playervictor.get(i).ps.println("requset**senderName");
-                 
+               playervictor.get(i).ps.println("requset*"+senderName+"*"+reciverName);    
              }
          }
-     } */
+     }
+    
+    public void accept(String rest){
+        StringTokenizer s = new StringTokenizer(rest,"*");
+         String challenger =s.nextToken();
+        // String challenger=s.nextToken();
+         for(int i =0 ;i<playervictor.size();i++){
+             if(challenger.equals(playervictor.get(i).username)){
+               //go to game screen for this socket
+               playervictor.get(i).ps.println("play*");
+             }
+         }
+        
+    }
+    
+    public void rejected(String rest){
+        StringTokenizer s = new StringTokenizer(rest,"*");
+         String rejecter =s.nextToken();
+         String challenger=s.nextToken();
+          for(int i =0 ;i<playervictor.size();i++){
+             if(challenger.equals(playervictor.get(i).username)){
+               playervictor.get(i).ps.println("refused*"+rejecter+"*"+challenger);    
+             }
+         }
+         
+    }
+    
+    public void noResponse(String rest){
+         String challenger =rest;
+         for(int i =0 ;i<playervictor.size();i++){
+             if(challenger.equals(playervictor.get(i).username)){
+               playervictor.get(i).ps.println("No Response");    
+             }
+         }
+    }
+    
+    
+    
+    
+    
 }
-
-   
-   }
     
     
     

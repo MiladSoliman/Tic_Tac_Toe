@@ -250,6 +250,7 @@ private void checkIsWin(){
         Alert a = new Alert(Alert.AlertType.NONE); 
         a.setTitle("CONGRATULATION");
         a.getDialogPane().getButtonTypes().addAll(ok);
+        //a.setContentText(player1.getText()+" "+"win");
         a.setHeaderText(player1.getText()+" "+"win");
         
         DialogPane dialogPane = a.getDialogPane();

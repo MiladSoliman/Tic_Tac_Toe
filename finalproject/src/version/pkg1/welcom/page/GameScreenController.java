@@ -527,92 +527,14 @@ public void recordGame(String Id,String x, boolean isrecoredGame){
         }  
 }
 }
-/*public void watchGame (){
-        try {
-           
-            FileInputStream fis = new FileInputStream("recordings/new.txt");
-            DataInputStream ds = new DataInputStream(fis);
-            String str = new String (ds.readUTF());
-             ds.close();
-            System.out.println(str);
-            String [] parts=str.split(" ");
-             Button bt=new Button();
-             String play;
-             boolean isO=true;
-		for(int i=0;i<parts.length;i+=2){
-                    
-                  // bt.setId(parts[i]);
-                //bt.setText(parts[i+1]);
-                if (isO){
-                play="O";
-                isO=false;
-		
-                }else{
-                       play="X";
-                       isO=true;
-                   }
-                switch(parts[i])
-                                    {
-                                      case "btn1":
-                                         btn1.setText(play);
-   
-                                         break;
-                                     case "btn2":
-                                        btn2.setText(play);
- 
-                                         break;
-                                     case "btn3":
-                                         btn3.setText(play);
-
-                                         break;
-                                     case "btn4":
-                                         btn4.setText(play);
-
-                                         break;
-                                     case "btn5":
-                                         btn5.setText(play);
- 
-                                         break;
-                                     case "btn6":
-                                         btn6.setText(play);
-
-                                         break;
-                                     case "btn7":
-                                         btn7.setText(play);
-                                      break;
-                                     case "btn8":
-                                         btn8.setText(play);
- 
-                                         break;
-                                     case "btn9":
-                                         btn9.setText(play);
-
-                                         break;
-                                     default:
-                                         break;
-                                    }
-
-
-                }
-  
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-
-
-}
 
 
 
-
-
-*/
 public void watchGame (){
     th=new Thread(this);
     FileInputStream fis = null;
         try {
+            
             fis = new FileInputStream("recordings/new.txt");
             DataInputStream ds = new DataInputStream(fis);
             str = new String (ds.readUTF());
@@ -626,8 +548,8 @@ public void watchGame (){
             Logger.getLogger(Replay.class.getName()).log(Level.SEVERE, null, ex);
         }        
 }
+
     @Override
-   
     public void run() {
       int i=0;
         while(i<=parts.length)
