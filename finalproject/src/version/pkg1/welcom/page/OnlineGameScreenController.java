@@ -59,6 +59,9 @@ public class OnlineGameScreenController implements Initializable {
 
     @FXML
     private void buttonPressed(ActionEvent event) {
+        
+        
+        
     }
 
     @FXML

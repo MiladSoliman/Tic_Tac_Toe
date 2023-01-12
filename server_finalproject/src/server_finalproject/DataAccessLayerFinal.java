@@ -26,7 +26,7 @@ public class DataAccessLayerFinal {
     public static int insert (Player player) throws SQLException{
         int result=0;
     DriverManager.registerDriver(new org.apache.derby.jdbc.ClientDriver());
-    Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/finalproject","tictactoe","tictactoe");
+    Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/tictactoe","tictactoe","tictactoe");
      PreparedStatement stm=con.prepareStatement("INSERT INTO PLAYERS VALUES (?,?,?,?,?)");
      stm.setString(1, player.getUsername());
      stm.setString(2, player.getEmail());
@@ -44,7 +44,7 @@ public class DataAccessLayerFinal {
 
      public static List<Player>getPlayers () throws SQLException{
         DriverManager.registerDriver(new org.apache.derby.jdbc.ClientDriver());
-        Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/finalproject","tictactoe","tictactoe"); 
+        Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/tictactoe","tictactoe","tictactoe"); 
         Statement st = con.createStatement();
         ResultSet res = st.executeQuery("SELECT * FROM  PLAYERS "); 
         List<Player> list = query1(res);
@@ -68,7 +68,7 @@ public class DataAccessLayerFinal {
         
             try {
     DriverManager.registerDriver(new org.apache.derby.jdbc.ClientDriver());
-    Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/finalproject","tictactoe","tictactoe");
+    Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/tictactoe","tictactoe","tictactoe");
     PreparedStatement prepStmt = con.prepareStatement("SELECT USERNAME,PASSWORD FROM PLAYERS WHERE USERNAME=? AND PASSWORD=?");
             prepStmt.setString(1, player.getUsername());
             prepStmt.setString(2, player.getPassword());
@@ -96,7 +96,7 @@ public class DataAccessLayerFinal {
 
     public static List<String>getConnectedPlayers () throws SQLException{
         DriverManager.registerDriver(new org.apache.derby.jdbc.ClientDriver());
-        Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/finalproject","tictactoe","tictactoe");
+        Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/tictactoe","tictactoe","tictactoe");
         Statement stmt = con.createStatement();
         
         PreparedStatement prepStmt = con.prepareStatement("SELECT USERNAME FROM PLAYERS WHERE STATUS = ?");
