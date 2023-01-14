@@ -14,14 +14,31 @@
             <Image url="@WhatsApp%20Image%202022-12-27%20at%206.17.11%20PM.jpeg" />
          </image>
       </ImageView>
-      <Label layoutX="208.0" layoutY="45.0" text="Select Level" textFill="#0ff7e3">
+      <Label layoutX="208.0" layoutY="45.0" text="Select Level" textFill="#54cba7">
          <font>
-            <Font size="36.0" />
+            <Font name="System Bold Italic" size="36.0" />
          </font>
       </Label>
-      <Button fx:id="Beginner" layoutX="215.0" layoutY="119.0" mnemonicParsing="false" onAction="#GameScreen" prefHeight="46.0" prefWidth="175.0" style="-fx-background-radius: 15px; -fx-background-color: beige;" text="Beginner" />
-      <Button fx:id="Proficient" layoutX="214.0" layoutY="206.0" mnemonicParsing="false" onAction="#GameScreenExpert" prefHeight="46.0" prefWidth="175.0" style="-fx-background-radius: 15px; -fx-background-color: beige;" text="Proficient" />
-      <Button fx:id="GameScreenExpert" layoutX="212.0" layoutY="282.0" mnemonicParsing="false" onAction="#GameScreenExpert" prefHeight="46.0" prefWidth="175.0" style="-fx-background-radius: 20px; -fx-background-color: beige;" text="Expert" />
-      <Button fx:id="homescreen" layoutX="34.0" layoutY="45.0" mnemonicParsing="false" onAction="#homescreen" prefHeight="31.0" prefWidth="86.0" style="-fx-background-radius: 15px; -fx-background-color: beige;" text="Home" />
+      <Button fx:id="Beginner" layoutX="215.0" layoutY="119.0" mnemonicParsing="false" onAction="#GameScreen" prefHeight="46.0" prefWidth="175.0" style="-fx-background-radius: 20px; -fx-background-color: beige;" text="Beginner">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Button>
+      <Button fx:id="Proficient" layoutX="214.0" layoutY="206.0" mnemonicParsing="false" onAction="#GameScreenExpert" prefHeight="46.0" prefWidth="175.0" style="-fx-background-radius: 20px; -fx-background-color: beige;" text="Proficient">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Button>
+      <Button fx:id="GameScreenExpert" layoutX="212.0" layoutY="282.0" mnemonicParsing="false" onAction="#GameScreenExpert" prefHeight="46.0" prefWidth="175.0" style="-fx-background-radius: 20px; -fx-background-color: beige;" text="Expert">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Button>
+      <Button fx:id="homescreen" layoutX="50.0" layoutY="54.0" mnemonicParsing="false" onAction="#homescreen" style="-fx-background-color: #EFEDE3;">
+         <graphic>
+            <ImageView fitHeight="39.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@home_ic.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

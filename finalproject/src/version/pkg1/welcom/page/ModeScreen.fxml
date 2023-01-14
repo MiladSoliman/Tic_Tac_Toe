@@ -14,13 +14,27 @@
             <Image url="@WhatsApp%20Image%202022-12-27%20at%206.17.11%20PM.jpeg" />
          </image>
       </ImageView>
-      <Label layoutX="155.0" layoutY="42.0" text="Choose The Mode" textFill="#09bced">
+      <Label layoutX="155.0" layoutY="42.0" text="Choose The Mode" textFill="#54cba7">
          <font>
-            <Font size="36.0" />
+            <Font name="System Bold Italic" size="36.0" />
          </font>
       </Label>
-      <Button fx:id="UserScreen" layoutX="213.0" layoutY="117.0" mnemonicParsing="false" onAction="#UserScreen" prefHeight="39.0" prefWidth="160.0" style="-fx-background-radius: 15px; -fx-background-color: beige;" text="One VS One" />
-      <Button fx:id="gotolevel" layoutX="213.0" layoutY="224.0" mnemonicParsing="false" onAction="#gotolevels" prefHeight="39.0" prefWidth="160.0" style="-fx-background-radius: 15px; -fx-background-color: beige;" text="One VS PC" />
-      <Button fx:id="homescreen" layoutX="14.0" layoutY="27.0" mnemonicParsing="false" onAction="#homescreen" prefHeight="39.0" prefWidth="76.0" style="-fx-background-radius: 15px; -fx-background-color: beige;" text="Home" />
+      <Button fx:id="UserScreen" layoutX="213.0" layoutY="136.0" mnemonicParsing="false" onAction="#UserScreen" prefHeight="39.0" prefWidth="160.0" style="-fx-background-radius: 15px; -fx-background-color: #EFEDE3;" text="One VS One">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Button>
+      <Button fx:id="gotolevel" layoutX="213.0" layoutY="224.0" mnemonicParsing="false" onAction="#gotolevels" prefHeight="39.0" prefWidth="160.0" style="-fx-background-radius: 15px; -fx-background-color: #EFEDE3;" text="One VS PC">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Button>
+      <Button fx:id="homescreen" layoutX="40.0" layoutY="44.0" mnemonicParsing="false" onAction="#homescreen" style="-fx-background-color: #EFEDE3;">
+         <graphic>
+            <ImageView fitHeight="39.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@home_ic.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>
