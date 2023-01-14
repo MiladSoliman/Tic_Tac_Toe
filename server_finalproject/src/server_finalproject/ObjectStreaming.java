@@ -157,7 +157,8 @@ public void stringDivision(String str){
 
                
                case"request":{
-                 request(rest);
+                 //request(rest);
+                 System.out.println("hello from request");
                }
               break;
                case"login":{
@@ -204,9 +205,15 @@ public void stringDivision(String str){
            try {
                int isValidAccount=DataAccessLayerFinal.validateLogin(player);
                if (isValidAccount==1){
+
                    ps.println("login*"+"valid account");
               PlayerHandeler.playerVsSocket.put(username, this);
               
+
+                    //PlayerHandeler.playervictor.add(this);
+                   ps.println("valid account");
+                   
+
                }else {
                    ps.println("login*"+"invalid account");
 

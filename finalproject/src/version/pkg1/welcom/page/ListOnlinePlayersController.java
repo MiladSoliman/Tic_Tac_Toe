@@ -65,6 +65,9 @@ public class ListOnlinePlayersController implements Initializable {
     listOnlinePlayersController=this;
     
     }
+ 
+
+
     public void displayName(String name) {
         username.setText(name);
         //   System.out.println(username.getText());
