@@ -4,6 +4,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="version.pkg1.welcom.page.FXMLDocumentController">
    <children>
@@ -12,7 +13,13 @@
             <Image url="@WhatsApp%20Image%202022-12-27%20at%208.53.53%20PM.jpeg" />
          </image>
       </ImageView>
-      <Button fx:id="gotomodscreen" layoutX="234.0" layoutY="136.0" mnemonicParsing="false" onAction="#gotomodscreen" prefHeight="48.0" prefWidth="128.0" style="-fx-background-radius: 15px; -fx-background-color: beige;" text="Play Offline" />
-      <Button fx:id="Login" layoutX="234.0" layoutY="221.0" mnemonicParsing="false" onAction="#Login" prefHeight="48.0" prefWidth="128.0" style="-fx-background-radius: 15px; -fx-background-color: beige;" text="Play Online" />
+      <Button fx:id="gotomodscreen" layoutX="234.0" layoutY="136.0" mnemonicParsing="false" onAction="#gotomodscreen" prefHeight="48.0" prefWidth="128.0" style="-fx-background-radius: 15px; -fx-background-color: beige;" text="Play Offline">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Button>
+      <Button fx:id="Login" layoutX="234.0" layoutY="221.0" mnemonicParsing="false" onAction="#Login" prefHeight="48.0" prefWidth="128.0" style="-fx-background-radius: 15px; -fx-background-color: beige;" text="Play Online">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Button>
    </children>
 </AnchorPane>

@@ -47,6 +47,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -63,11 +64,11 @@ public class GameScreenController implements Initializable,Runnable {
     private boolean winner = false;
     private Boolean computerWin = false ;
     private String player = "O";
-boolean flag=false;
-String sum="";
+    boolean flag=false;
+    String sum="";
 //ArrayList<String> parts=new ArrayList<String>();
             int i=0;
-             String play;
+            String play;
     Thread th;
     boolean isO=true;
     String [] parts;
@@ -105,6 +106,8 @@ String sum="";
     @FXML
     private Label player_name;
     @FXML
+    private Label computer;
+    @FXML
     private Label player_score;
     @FXML
     private Label computer_score;
@@ -137,6 +140,8 @@ String sum="";
             buttonPressed = (Button) e.getSource();
             if(buttonPressed.getText().equals("")){
                 buttonPressed.setText("O");
+               // player_name.setTextFill(Paint.valueOf("#54cba7"));
+               //computer.setTextFill(Paint.valueOf("#c41e3a"));
                 recordGame(buttonPressed.getId().toString(),buttonPressed.getText(),is_recored_game);
                 //if(EasyOrHardLevelController.isrecord)
                 // AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
@@ -372,7 +377,11 @@ String sum="";
             winner = true;
         }
  if(playerWin){
-            displayVideo("win.mp4","Congratulations",200,200);
+            int mediaHeight=400;
+            int mediaWidth=450;
+            int prefWidth=500;
+            int prefHeight=400;
+            displayVideo("win.mp4","Congratulations",mediaHeight,mediaWidth,prefWidth,prefHeight,22,20);
             playerWin=false;
            /* System.out.println("Synch");
             prefs.putInt("score",score);
@@ -380,13 +389,22 @@ String sum="";
             btnPlayAgain.setVisible(true);*/
         }
         else if(computerWin){
-            displayVideo("lose.mp4","Hard luck",400,400);
+            int mediaHeight=350;
+            int mediaWidth=1600;
+            int prefWidth=400;
+            int prefHeight=390;
+                            
+            displayVideo("lose.mp4","Hard luck",mediaHeight,mediaWidth,prefWidth,prefHeight,60,20);
             computerWin=false;
            /* System.out.println("computer wins");
            btnPlayAgain.setVisible(true); */    
         }
        else if (isFullGrid()){
-           displayVideo("Draw.mp4","It's a draw",600,400);  
+            int mediaHeight=1100;
+            int mediaWidth=500;
+            int prefWidth=550;
+            int prefHeight=270;
+           displayVideo("Draw.mp4","It's a draw",mediaHeight,mediaWidth,prefWidth,prefHeight,22,20);  
        }
     
     }
@@ -417,6 +435,8 @@ String sum="";
             //اول ملاقى  زراز يكون فاضى اطلع من اللوب عشان اكتب عليه 
         }while(!myBtn.getText().equals(""));
         myBtn.setText("X");
+         // computer.setTextFill(Paint.valueOf("#54cba7"));
+          //player_name.setTextFill(Paint.valueOf("#c41e3a"));
            recordGame(myBtn.getId().toString(),myBtn.getText(),is_recored_game);
            
     }
@@ -435,7 +455,7 @@ String sum="";
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ListRecordedGames.fxml"));	
         Parent root = loader.load();	
 	ListRecordedGamesController listRecordedGamestroller = loader.getController();
-	listRecordedGamestroller.displaylistOfNamesGames(listOfNamesGames);
+	listRecordedGamestroller.displaylistOfNamesGames(listOfNamesGames,player_name.getText().toString(),player_score.getText().toString(),computer_score.getText().toString());
         
         //Parent root = FXMLLoader.load(getClass().getResource("ListRecordedGames.fxml"));
        Scene scene = new Scene(root); 
@@ -451,6 +471,7 @@ String sum="";
         computerWin=false;
         player="O";
         winner = false ; 
+         sum="";
 
     btn1.setText("");
     btn2.setText("");
@@ -470,6 +491,8 @@ String sum="";
     btn7.setStyle("-fx-background-color: none;");
     btn8.setStyle("-fx-background-color: none;");
     btn9.setStyle("-fx-background-color: none;"); 
+    
+    is_recored_game=isRecordGame();
 
 
     }
@@ -484,25 +507,31 @@ String sum="";
     b2.setStyle("-fx-background-color: green;");
     b3.setStyle("-fx-background-color: green;");
 }
-  public void displayVideo(String videopath,String title,int x,int y){
+  public void displayVideo(String videopath,String title,int mediaHeight,int mediaWidth,int prefWidth,int prefHeight, int x,int y){
+     
     Media media = new Media(getClass().getResource(videopath).toExternalForm());
     mp = new MediaPlayer(media); 
     view=new MediaView();
+    view.setFitHeight(mediaHeight);
+    view.setFitWidth(mediaWidth);
+    view.setX(x);
+    view.setY(y);
     video = new Dialog<>();
-    video.getDialogPane().setMinSize(x, y);
+    DialogPane dialogPane=video.getDialogPane();
+    video.getDialogPane().setPrefSize(prefWidth, prefHeight);
     video.setTitle(title);
     video.getDialogPane().getChildren().add(view);
     ButtonType ok = new ButtonType("ok",ButtonData.OK_DONE);
     video.getDialogPane().getButtonTypes().add(ok);
     view.setMediaPlayer(mp);   
+    dialogPane .getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+    dialogPane.getStyleClass().add("infoDialog");
     video.show(); 
     mp.play();
     flag=false;
-    btn_watch_game.setDisable(false);
-    
-    
-           
+    btn_watch_game.setDisable(false);        
   }
+  
 public void recordGame(String Id,String x, boolean isrecoredGame){
     if (isrecoredGame){
         File dir = new File("recordings");

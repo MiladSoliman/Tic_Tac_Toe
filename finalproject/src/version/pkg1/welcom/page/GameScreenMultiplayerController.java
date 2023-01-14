@@ -17,11 +17,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 /**
@@ -98,8 +100,12 @@ public class GameScreenMultiplayerController implements Initializable {
             }
             if(player=="O"){
                 player ="X";
+                player1.setTextFill(Paint.valueOf("#54cba7"));
+               player2.setTextFill(Paint.valueOf("#c41e3a"));
             }else{
                 player="O";
+               player2.setTextFill(Paint.valueOf("#54cba7"));
+               player1.setTextFill(Paint.valueOf("#c41e3a"));
             }
             checkIsWin(); 
         }
@@ -234,7 +240,7 @@ private void checkIsWin(){
         if(b3.equals("O")){
             playerOneWin = true;
          
-        }else if (b1.equals("X"))
+        }else if (b3.equals("X"))
         {
             playerTwoWin=true;
            
@@ -246,17 +252,20 @@ private void checkIsWin(){
          playerOneScore +=1;
          setScore1(playerOneScore);
         ButtonType ok = new ButtonType("Ok", ButtonData.OK_DONE);
-      
+        //ButtonType Cancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
         Alert a = new Alert(Alert.AlertType.NONE); 
-        a.setTitle("CONGRATULATION");
-        a.getDialogPane().getButtonTypes().addAll(ok);
+        a.setHeaderText("   CONGRATULATION!");
+        a.getDialogPane().getButtonTypes().add(ok);
         //a.setContentText(player1.getText()+" "+"win");
-        a.setHeaderText(player1.getText()+" "+"win");
+        a.setContentText("             "+player1.getText()+" "+"win");
         
         DialogPane dialogPane = a.getDialogPane();
         dialogPane.getStylesheets().add(
-        getClass().getResource("/css/style.css").toExternalForm());
+        getClass().getResource("/css/style2.css").toExternalForm());
         dialogPane.getStyleClass().add("infoDialog");
+        
+        
         a.showAndWait();
 
         playerOneWin = false;
@@ -266,28 +275,36 @@ private void checkIsWin(){
        playerTwoScore+=1;
        setScore2(playerTwoScore);
       ButtonType ok = new ButtonType("Ok", ButtonData.OK_DONE);
-      
+      //ButtonType Cancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
         Alert a = new Alert(Alert.AlertType.NONE); 
-        a.setTitle("CONGRATULATION");
-        a.getDialogPane().getButtonTypes().addAll(ok);
-        a.setHeaderText(player2.getText()+" "+"win");
+        a.setHeaderText("    CONGRATULATIONS!");
+        a.getDialogPane().getButtonTypes().add(ok);
+        a.setContentText("             "+player2.getText()+" "+"win");
         
         DialogPane dialogPane = a.getDialogPane();
         dialogPane.getStylesheets().add(
-        getClass().getResource("/css/style.css").toExternalForm());
+        getClass().getResource("/css/style2.css").toExternalForm());
         dialogPane.getStyleClass().add("infoDialog");
-
         a.showAndWait();
      
        playerTwoWin = false;
        
     }else if(checkIsDraw()){   
       diaolg = new Dialog<>();
-      diaolg.setTitle("draw");
-      diaolg.setContentText("it's Draw guyes");
+      diaolg.setHeaderText("               Draw!");
+      diaolg.setContentText("        "+"it's Draw guyes");
       ButtonType ok = new ButtonType("Ok", ButtonData.OK_DONE);
-      diaolg.getDialogPane().getButtonTypes().add(ok);
-      diaolg.show(); 
+      //ButtonType Cancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+     diaolg.getDialogPane().getButtonTypes().addAll(ok);
+      
+        DialogPane dialogPane = diaolg.getDialogPane();
+        dialogPane.getStylesheets().add(
+        getClass().getResource("/css/style2.css").toExternalForm());
+        dialogPane.getStyleClass().add("infoDialog");
+
+        diaolg.showAndWait();
     }
      
 }
@@ -317,6 +334,7 @@ private void colorWinner(Button b1 ,Button b2 , Button b3  ){
 } 
 @FXML
 private void playagain(ActionEvent event) throws IOException  {
+    playagain.setVisible(false);
     isWinner = false ; 
     btn1.setText("");
     btn2.setText("");

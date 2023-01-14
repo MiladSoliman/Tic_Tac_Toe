@@ -94,7 +94,9 @@ list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<S
               System.out.println(name);
             System.out.println(username.getText());
                 
-            String message = ("request*" + username.getText() + "*" + name);
+            String message = ("request*"+username.getText()+"*"+name);
+            sendRequest(message);
+            
         
     }
 });
