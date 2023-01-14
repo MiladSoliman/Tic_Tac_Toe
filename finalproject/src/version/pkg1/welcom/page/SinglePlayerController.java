@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -59,10 +60,14 @@ public class SinglePlayerController implements Initializable {
         if(single_player_name.getText().toString().isEmpty())
         {Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
-            alert.setHeaderText("Required Fields Empty");
+            alert.setHeaderText("Required Field Empty");
             alert.setContentText("Text field must be filled "
                     + "out.\nPlease try again.");
-            alert.showAndWait();
+             DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+        getClass().getResource("/css/style3.css").toExternalForm());
+        dialogPane.getStyleClass().add("infoDialog");
+        alert.showAndWait();
         
         }
         else{

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package server_finalproject;
 
 import java.sql.Connection;
@@ -97,21 +92,22 @@ public class DataAccessLayerFinal {
 
     public static List<String>getConnectedPlayers () throws SQLException{
         DriverManager.registerDriver(new org.apache.derby.jdbc.ClientDriver());
+
         Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/finalproject","tictactoe","tictactoe");
-        Statement stmt = con.createStatement();
-        
+
         PreparedStatement prepStmt = con.prepareStatement("SELECT USERNAME FROM PLAYERS WHERE STATUS = ?");
         prepStmt.setString(1, "online");
         ResultSet rs = prepStmt.executeQuery();
         List<String> list = query(rs);
         
         con.close();                                     
-        stmt.close();
+        prepStmt.close();
         return list;
         
     }
    
   
+
    public static String validateSignup(Player player) throws SQLException{
        String isValid = null;
             
@@ -123,15 +119,15 @@ public class DataAccessLayerFinal {
             prepStmt2.setString(1, player.getEmail());
             ResultSet rs = prepStmt.executeQuery();
             ResultSet res = prepStmt2.executeQuery();
-            if(rs.next()&&res.next()){
+            if(rs.next()||res.next()){
                 isValid="not valid username or email";
             }
-            else if(rs.next()){
+           /* else if(rs.next()){
             isValid="not valid username";
             }
             else if(res.next()){
             isValid="not valid email";
-            }
+            }*/
             else{
             isValid="valid";
             }
@@ -139,3 +135,8 @@ public class DataAccessLayerFinal {
         return isValid;
             }
         }
+
+   
+
+
+

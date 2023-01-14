@@ -30,6 +30,10 @@
       <Label layoutX="179.0" layoutY="154.0" text="Email" textFill="#3fe8ce" />
       <Label layoutX="180.0" layoutY="216.0" text="Password" textFill="#40e4a8" />
       <Label layoutX="180.0" layoutY="272.0" text="Confirm Password" textFill="#44eecf" />
+      <Label fx:id="signup_error" layoutX="78.0" layoutY="340.0" prefHeight="31.0" prefWidth="331.0" textFill="RED">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
       <Button fx:id="homescreen" layoutX="22.0" layoutY="40.0" mnemonicParsing="false" onAction="#homescreen" prefHeight="31.0" prefWidth="91.0" style="-fx-background-radius: 15px; -fx-background-color: beige;" text="Home" />
    </children>
 </AnchorPane>

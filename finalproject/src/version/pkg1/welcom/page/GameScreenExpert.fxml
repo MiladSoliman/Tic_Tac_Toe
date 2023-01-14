@@ -9,59 +9,95 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="version.pkg1.welcom.page.GameScreenExpertController">
    <children>
-      <ImageView fitHeight="400.0" fitWidth="607.0" layoutX="-3.0" pickOnBounds="true">
+      <ImageView fitHeight="443.0" fitWidth="600.0" layoutY="-3.0" pickOnBounds="true">
          <image>
             <Image url="@WhatsApp%20Image%202022-12-27%20at%206.17.11%20PM.jpeg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="267.0" fitWidth="447.0" layoutX="77.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="324.0" fitWidth="526.0" layoutX="38.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@WhatsApp%20Image%202022-12-30%20at%2011.42.30%20PM.jpeg" />
          </image>
       </ImageView>
-      <Label fx:id="player_name" layoutX="161.0" layoutY="11.0" prefHeight="32.0" prefWidth="133.0" text="Player" textFill="#54cba7">
+      <Button fx:id="btn1" layoutX="47.0" layoutY="85.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="91.0" prefWidth="163.0" style="-fx-background-color: EFEDE3;" textFill="#c41e3a">
          <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="274.0" layoutY="5.0" text="Vs" textFill="#54cba7">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Label>
-      <Label layoutX="360.0" layoutY="13.0" text="Computer" textFill="#54cba7">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label fx:id="player_score" layoutX="185.0" layoutY="50.0" text="0" textFill="#54cba7">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label fx:id="computer_score" layoutX="404.0" layoutY="50.0" text="0" textFill="#54cba7">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Button fx:id="play_again_btn" layoutX="99.0" layoutY="350.0" mnemonicParsing="false" onAction="#playagain" style="-fx-background-color: FD9727; -fx-background-radius: 30px;" text="Play again" textFill="#172487">
-         <font>
-            <Font size="18.0" />
+            <Font name="Arial Bold" size="48.0" />
          </font>
       </Button>
-      <Button fx:id="exit_btn" layoutX="395.0" layoutY="350.0" mnemonicParsing="false" onAction="#homescreen" prefHeight="35.0" prefWidth="101.0" style="-fx-background-color: FD9727; -fx-background-radius: 30px;" text="Exit" textFill="#172487">
+      <Button fx:id="btn2" layoutX="219.0" layoutY="85.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="91.0" prefWidth="164.0" style="-fx-background-color: EFEDE3;" textFill="#c41e3a">
          <font>
-            <Font size="18.0" />
+            <Font name="Arial Bold" size="48.0" />
          </font>
       </Button>
-      <Button fx:id="btn1" layoutX="84.0" layoutY="86.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="80.0" prefWidth="139.0" style="-fx-background-color: EFEDE3;" />
-      <Button fx:id="btn2" layoutX="230.0" layoutY="90.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="72.0" prefWidth="145.0" style="-fx-background-color: EFEDE3;" />
-      <Button fx:id="btn3" layoutX="380.0" layoutY="86.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="80.0" prefWidth="133.0" style="-fx-background-color: EFEDE3;" />
-      <Button fx:id="btn4" layoutX="85.0" layoutY="171.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="80.0" prefWidth="139.0" style="-fx-background-color: EFEDE3;" />
-      <Button fx:id="btn5" layoutX="230.0" layoutY="172.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="80.0" prefWidth="145.0" style="-fx-background-color: EFEDE3;" />
-      <Button fx:id="btn6" layoutX="377.0" layoutY="172.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="80.0" prefWidth="139.0" style="-fx-background-color: EFEDE3;" />
-      <Button fx:id="btn7" layoutX="84.0" layoutY="253.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="80.0" prefWidth="139.0" style="-fx-background-color: EFEDE3;" />
-      <Button fx:id="btn8" layoutX="230.0" layoutY="261.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="72.0" prefWidth="139.0" style="-fx-background-color: EFEDE3;" />
-      <Button fx:id="btn9" layoutX="380.0" layoutY="261.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="72.0" prefWidth="139.0" style="-fx-background-color: EFEDE3;" />
+      <Button fx:id="btn3" layoutX="392.0" layoutY="85.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="91.0" prefWidth="163.0" style="-fx-background-color: EFEDE3;" textFill="#c41e3a">
+         <font>
+            <Font name="Arial Bold" size="48.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn4" layoutX="47.0" layoutY="185.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="91.0" prefWidth="163.0" style="-fx-background-color: EFEDE3;" textFill="#c41e3a">
+         <font>
+            <Font name="Arial Bold" size="48.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn5" layoutX="219.0" layoutY="185.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="92.0" prefWidth="164.0" style="-fx-background-color: EFEDE3;" textFill="#c41e3a">
+         <font>
+            <Font name="Arial Bold" size="48.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn6" layoutX="392.0" layoutY="185.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="91.0" prefWidth="163.0" style="-fx-background-color: EFEDE3;" textFill="#c41e3a">
+         <font>
+            <Font name="Arial Bold" size="48.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn7" layoutX="47.0" layoutY="285.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="91.0" prefWidth="163.0" style="-fx-background-color: EFEDE3;" textFill="#c41e3a">
+         <font>
+            <Font name="Arial Bold" size="48.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn8" layoutX="219.0" layoutY="285.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="91.0" prefWidth="164.0" style="-fx-background-color: EFEDE3;" textFill="#c41e3a">
+         <font>
+            <Font name="Arial Bold" size="48.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn9" layoutX="392.0" layoutY="285.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="91.0" prefWidth="163.0" style="-fx-background-color: EFEDE3;" textFill="#c41e3a">
+         <font>
+            <Font name="Arial Bold" size="48.0" />
+         </font>
+      </Button>
+      <Label fx:id="player_name" layoutX="93.0" layoutY="6.0" prefHeight="32.0" prefWidth="133.0" text="Player" textAlignment="CENTER" textFill="#54cba7">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="281.0" layoutY="23.0" text="VS" textAlignment="CENTER" textFill="#54cba7">
+         <font>
+            <Font name="System Bold Italic" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="420.0" layoutY="6.0" text="Computer" textAlignment="CENTER" textFill="#54cba7">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="player_score" layoutX="116.0" layoutY="38.0" text="0" textAlignment="CENTER" textFill="#54cba7">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="computer_score" layoutX="467.0" layoutY="38.0" text="0" textAlignment="CENTER" textFill="#54cba7">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="play_again_btn" layoutX="76.0" layoutY="393.0" mnemonicParsing="false" onAction="#playagain" style="-fx-background-color: FD9727; -fx-background-radius: 30px;" text="Play again">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="exit_btn" layoutX="423.0" layoutY="393.0" mnemonicParsing="false" onAction="#homescreen" prefHeight="35.0" prefWidth="101.0" style="-fx-background-color: FD9727; -fx-background-radius: 30px;" text="Exit">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

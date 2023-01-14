@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -32,9 +33,9 @@ public class UserPlayerController implements Initializable {
     @FXML
     private Button GameScreen;
     @FXML
-    public TextField player1namete;
+    public TextField player1;
     @FXML
-    private TextField playername2te;
+    private TextField player2;
   
 
     /**
@@ -56,20 +57,33 @@ public class UserPlayerController implements Initializable {
 
     @FXML
     private void GameScreen(ActionEvent event) throws IOException {
-        String player1 = player1namete.getText().toString();
-        String player2 = playername2te.getText().toString();
-        if(player1.length()==0||player2.length()==0){
+        String player_1 = player1.getText().toString();
+        String player_2 = player2.getText().toString();
+        if(player_1.length()==0||player_2.length()==0){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText("Required Fields Empty");
             alert.setContentText("The Text fields must be filled "
                     + "out.\nPlease try again.");
-            alert.showAndWait();
+           // alert.showAndWait();
+            
+            
+            
+               //Alert a = new Alert(Alert.AlertType.NONE); 
+        //a.setHeaderText("    CONGRATULATIONS!");
+       // a.getDialogPane().getButtonTypes().add(ok);
+       // a.setContentText("             "+player2.getText()+" "+"win");
+        
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+        getClass().getResource("/css/style3.css").toExternalForm());
+        dialogPane.getStyleClass().add("infoDialog");
+        alert.showAndWait();
         }else{
       FXMLLoader loader = new FXMLLoader(getClass().getResource("GameScreenMultiplayer.fxml"));	
       Parent root = (Parent)loader.load();
        GameScreenMultiplayerController game2 = loader.getController();
-       game2.displaynames(player1, player2);  
+       game2.displaynames(player_1, player_2);  
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);

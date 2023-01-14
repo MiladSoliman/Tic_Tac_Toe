@@ -133,13 +133,21 @@ public static MediaPlayer mp;
                               System.out.println(score);
                               playerWin = true;
                               winner = true;
-                              displayVideo("win.mp4","Congratulations",200,200);
+                                int mediaHeight=400;
+                                int mediaWidth=450;
+                                int prefWidth=500;
+                                int prefHeight=400;
+                              displayVideo("win.mp4","Congratulations",mediaHeight,mediaWidth,prefWidth,prefHeight,22,20);
                           //  xScore++;
                           //  System.out.println("the x score is" + xScore);
                             // Computer win
                            } else if (result == -10) {
                               computerWin=true;
-                              displayVideo("lose.mp4","Hard luck",400,400);
+                                int mediaHeight=350;
+                                int mediaWidth=1600;
+                                int prefWidth=400;
+                                int prefHeight=390;
+                             displayVideo("lose.mp4","Hard luck",mediaHeight,mediaWidth,prefWidth,prefHeight,60,20);
                               int score=Integer.parseInt(computer_score.getText().toString());
                               score+=1;
                               computer_score.setText(""+score);  
@@ -149,7 +157,11 @@ public static MediaPlayer mp;
                           //  tieScore++;   
                                 System.out.println("Draw");
                                 winner = true;
-                                displayVideo("Draw.mp4","It's a draw",600,400);
+                                int mediaHeight=1100;
+                                int mediaWidth=500;
+                                int prefWidth=550;
+                                int prefHeight=270;
+                            displayVideo("Draw.mp4","It's a draw",mediaHeight,mediaWidth,prefWidth,prefHeight,22,20);  
                              }
                             }
                         }
@@ -193,20 +205,27 @@ public static MediaPlayer mp;
     }
     
     
-    public void displayVideo(String videopath,String title,int x,int y){
-        Media media = new Media(getClass().getResource(videopath).toExternalForm());
-        mp = new MediaPlayer(media); 
-        view=new MediaView();
-        video = new Dialog<>();
-        video.getDialogPane().setMinSize(x, y);
-        video.setTitle(title);
-        video.getDialogPane().getChildren().add(view);
-        ButtonType ok = new ButtonType("ok",ButtonBar.ButtonData.OK_DONE);
-        video.getDialogPane().getButtonTypes().add(ok);
-        view.setMediaPlayer(mp);   
-        video.show(); 
-        mp.play();
-        flag=false;
-
-    }
+  public void displayVideo(String videopath,String title,int mediaHeight,int mediaWidth,int prefWidth,int prefHeight, int x,int y){  
+    Media media = new Media(getClass().getResource(videopath).toExternalForm());
+    mp = new MediaPlayer(media); 
+    view=new MediaView();
+    view.setFitHeight(mediaHeight);
+    view.setFitWidth(mediaWidth);
+    view.setX(x);
+    view.setY(y);
+    video = new Dialog<>();
+    DialogPane dialogPane=video.getDialogPane();
+    video.getDialogPane().setPrefSize(prefWidth, prefHeight);
+    video.setTitle(title);
+    video.getDialogPane().getChildren().add(view);
+    ButtonType ok = new ButtonType("ok",ButtonBar.ButtonData.OK_DONE);
+    video.getDialogPane().getButtonTypes().add(ok);
+    view.setMediaPlayer(mp);   
+    dialogPane .getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+    dialogPane.getStyleClass().add("infoDialog");
+    video.show(); 
+    mp.play();
+    flag=false;
+   // btn_watch_game.setDisable(false);        
+  }
 }
